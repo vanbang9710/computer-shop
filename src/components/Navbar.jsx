@@ -1,106 +1,217 @@
-import { Pets } from "@mui/icons-material";
-import {
-  AppBar,
-  Avatar,
-  Badge,
-  Box,
-  InputBase,
-  Menu,
-  MenuItem,
-  styled,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import * as React from "react";
+import { styled, alpha } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import InputBase from "@mui/material/InputBase";
+import Badge from "@mui/material/Badge";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import React, { useState } from "react";
-import { deepOrange } from "@mui/material/colors";
-
-const StyledToolbar = styled(Toolbar)({
-  display: "flex",
-  justifyContent: "space-between",
-});
+import MoreIcon from "@mui/icons-material/MoreVert";
+import { ShoppingCart } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
-  backgroundColor: "white",
-  padding: "0 10px",
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
-  width: "40%",
-}));
-
-const Icons = styled(Box)(({ theme }) => ({
-  display: "none",
-  gap: "20px",
-  alignItems: "center",
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
   [theme.breakpoints.up("sm")]: {
-    display: "flex",
+    marginLeft: theme.spacing(3),
+    width: "auto",
   },
 }));
 
-const UserBox = styled(Box)(({ theme }) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
   display: "flex",
-  gap: "10px",
   alignItems: "center",
-  [theme.breakpoints.up("sm")]: {
-    display: "none",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
   },
 }));
 
-const Navbar = () => {
-  const [open, setOpen] = useState(false);
+export default function PrimarySearchAppBar({ open, setOpen }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const menuId = "primary-search-account-menu";
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Hồ sơ</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Đăng nhập</MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton size="large" aria-label="show carts" color="inherit">
+          <Badge badgeContent={1} color="error">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
+        <p>Giỏ hàng</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Người dùng</p>
+      </MenuItem>
+    </Menu>
+  );
+
   return (
-    <AppBar position="sticky">
-      <StyledToolbar>
-        <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box sx={{ flexGrow: 1 }}>
+      <Toolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="open drawer"
+          sx={{ mr: 2, ...(open && { display: "none" }) }}
+          onClick={(e) => setOpen(true)}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ display: { xs: "none", sm: "block" } }}
+        >
           HBH
         </Typography>
-        <Pets sx={{ display: { xs: "block", sm: "none" } }} />
         <Search>
-          <InputBase placeholder="Search" />
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Tìm kiếm…"
+            inputProps={{ "aria-label": "search" }}
+          />
         </Search>
-        <Icons>
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-          <Badge badgeContent={2} color="error">
-            <NotificationsIcon />
-          </Badge>
-          <Avatar
-            sx={{ bgcolor: deepOrange[500], width: "30px", height: "30px" }}
-            onClick={(e) => setOpen(true)}
+        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Tooltip title="Giỏ hàng">
+            <IconButton size="large" aria-label="show carts" color="inherit">
+              <Badge badgeContent={1} color="error">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Người dùng">
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <IconButton
+            size="large"
+            aria-label="show more"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+            color="inherit"
           >
-            H
-          </Avatar>
-        </Icons>
-        <UserBox onClick={(e) => setOpen(true)}>
-          <Avatar
-            sx={{ bgcolor: deepOrange[500], width: "30px", height: "30px" }}
-          >
-            H
-          </Avatar>
-          <Typography>Hieubentau</Typography>
-        </UserBox>
-      </StyledToolbar>
-      <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        open={open}
-        onClose={(e) => setOpen(false)}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-      >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
-      </Menu>
-    </AppBar>
+            <MoreIcon />
+          </IconButton>
+        </Box>
+      </Toolbar>
+      {renderMobileMenu}
+      {renderMenu}
+    </Box>
   );
-};
-
-export default Navbar;
+}
