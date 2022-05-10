@@ -8,18 +8,11 @@ import { useState } from "react";
 
 function App() {
   const [mode, setMode] = useState("dark");
-  const mainTheme = createTheme({
-    palette: {
-      mode: mode,
-    },
-  });
   return (
-    <ThemeProvider theme={mainTheme}>
-      <Box bgcolor={"background.default"} color={"text.primary"}>
-        <Sidebar setMode={setMode} mode={mode} />
-        <Feed />
-      </Box>
-    </ThemeProvider>
+    <Box bgcolor={"background.default"} color={"text.primary"}>
+      <Sidebar setMode={setMode} mode={mode} />
+      <Feed />
+    </Box>
   );
 }
 

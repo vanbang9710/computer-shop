@@ -29,7 +29,13 @@ import {
   Settings,
   StarBorder,
 } from "@mui/icons-material";
-import { Button, Collapse } from "@mui/material";
+import {
+  Button,
+  Collapse,
+  FormControlLabel,
+  FormGroup,
+  Switch,
+} from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -101,6 +107,9 @@ const Drawer = styled(MuiDrawer, {
 const Sidebar = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   const [expandProduct, setExpandProduct] = React.useState(false);
   const handleExpandProduct = () => {
@@ -112,9 +121,7 @@ const Sidebar = () => {
     setExpandSetting(!expandSetting);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const label = { inputProps: { "aria-label": "Switch demo" } };
 
   return (
     <Box sx={{ display: "flex", flexGrow: 1 }}>
@@ -207,13 +214,21 @@ const Sidebar = () => {
             <ListItemText primary="Cài đặt" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
           <Collapse in={expandSetting} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 3.5 }}>
-                <ListItemIcon>
-                  <ModeNight />
-                </ListItemIcon>
-              </ListItemButton>
-            </List>
+            <FormGroup>
+              <List component="div" disablePadding>
+                <FormControlLabel
+                  label={
+                    <ListItemButton sx={{ pl: 1.5 }}>
+                      <ListItemIcon>
+                        <ModeNight />
+                      </ListItemIcon>
+                    </ListItemButton>
+                  }
+                  control={<Switch {...label} />}
+                  labelPlacement="start"
+                />
+              </List>
+            </FormGroup>
           </Collapse>
         </List>
       </Drawer>

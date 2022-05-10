@@ -1,4 +1,6 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
+
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -100,7 +102,9 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Hồ sơ</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Đăng nhập</MenuItem>
+      <Link to="/login" style={{ textDecoration: "none", color: "white" }}>
+        <MenuItem onClick={handleMenuClose}>Đăng nhập</MenuItem>
+      </Link>
     </Menu>
   );
 

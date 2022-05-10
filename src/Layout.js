@@ -1,11 +1,14 @@
 import React from "react";
 import MainRoutes from "./routes/Routes.js";
 
+import { theme } from './theme';
+import { ThemeProvider } from '@mui/material';
+
 const Layout = () => {
     return (
-        <div>
+        <ThemeProvider theme={theme}>
             <MainRoutes />
-        </div>
+        </ThemeProvider>
     );
 };
 
