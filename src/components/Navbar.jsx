@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -14,8 +13,6 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { ShoppingCart } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
@@ -102,9 +99,11 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Hồ sơ</MenuItem>
-      <Link to="/login" style={{ textDecoration: "none", color: "white" }}>
-        <MenuItem onClick={handleMenuClose}>Đăng nhập</MenuItem>
-      </Link>
+      <MenuItem onClick={handleMenuClose}>
+        <Link to="/signin" style={{ textDecoration: "none", color: "black" }}>
+          Đăng nhập
+        </Link>
+      </MenuItem>
     </Menu>
   );
 

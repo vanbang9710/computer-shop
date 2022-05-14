@@ -3,39 +3,25 @@ import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 
 import Navbar from "./Navbar";
 import {
   Category,
-  ExpandLess,
-  ExpandMore,
   Home,
   Laptop,
   ModeNight,
   Settings,
-  StarBorder,
 } from "@mui/icons-material";
-import {
-  Button,
-  Collapse,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-} from "@mui/material";
+import { Collapse, FormControlLabel, FormGroup, Switch } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -214,21 +200,14 @@ const Sidebar = () => {
             <ListItemText primary="Cài đặt" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
           <Collapse in={expandSetting} timeout="auto" unmountOnExit>
-            <FormGroup>
-              <List component="div" disablePadding>
-                <FormControlLabel
-                  label={
-                    <ListItemButton sx={{ pl: 1.5 }}>
-                      <ListItemIcon>
-                        <ModeNight />
-                      </ListItemIcon>
-                    </ListItemButton>
-                  }
-                  control={<Switch {...label} />}
-                  labelPlacement="start"
-                />
-              </List>
-            </FormGroup>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 3.5 }}>
+                <ListItemIcon>
+                  <ModeNight />
+                </ListItemIcon>
+                <ListItemText primary="Night mode" />
+              </ListItemButton>
+            </List>
           </Collapse>
         </List>
       </Drawer>
