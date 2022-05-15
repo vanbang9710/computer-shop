@@ -13,15 +13,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-import Navbar from "./Navbar";
-import {
-  Category,
-  Home,
-  Laptop,
-  ModeNight,
-  Settings,
-} from "@mui/icons-material";
-import { Collapse, FormControlLabel, FormGroup, Switch } from "@mui/material";
+import Navbar from "../Navbar";
+import { Home, Laptop, ModeNight, Settings } from "@mui/icons-material";
+import { Collapse } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -107,7 +102,7 @@ const Sidebar = () => {
     setExpandSetting(!expandSetting);
   };
 
-  const label = { inputProps: { "aria-label": "Switch demo" } };
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ display: "flex", flexGrow: 1 }}>
@@ -133,6 +128,9 @@ const Sidebar = () => {
               minHeight: 48,
               justifyContent: open ? "initial" : "center",
               px: 2.5,
+            }}
+            onClick={() => {
+              navigate("/");
             }}
           >
             <ListItemIcon
@@ -162,13 +160,18 @@ const Sidebar = () => {
                 justifyContent: "center",
               }}
             >
-              <Category />
+              <Laptop />
             </ListItemIcon>
             <ListItemText primary="Sản phẩm" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
           <Collapse in={expandProduct} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 3.5 }}>
+              <ListItemButton
+                sx={{ pl: 3.5 }}
+                onClick={() => {
+                  navigate("laptop");
+                }}
+              >
                 <ListItemIcon>
                   <Laptop />
                 </ListItemIcon>

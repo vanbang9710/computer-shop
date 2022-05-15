@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -16,6 +15,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { ShoppingCart } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -82,6 +82,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
   };
 
   const menuId = "primary-search-account-menu";
+  const navigate = useNavigate();
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -99,10 +100,12 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Hồ sơ</MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/signin" style={{ textDecoration: "none", color: "black" }}>
-          Đăng nhập
-        </Link>
+      <MenuItem
+        onClick={() => {
+          navigate("/signin");
+        }}
+      >
+        Đăng nhập
       </MenuItem>
     </Menu>
   );

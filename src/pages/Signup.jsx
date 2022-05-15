@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "@mui/material";
 
 function Copyright(props) {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <Typography
       variant="body2"
@@ -42,7 +42,7 @@ function Copyright(props) {
 }
 
 export default function SignUp() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
