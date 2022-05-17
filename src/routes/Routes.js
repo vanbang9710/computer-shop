@@ -8,16 +8,18 @@ import NoPage from "../pages/NoPage";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
 import Laptop from "../pages/Laptop";
+import Profile from "../pages/Profile";
 
 const MainRoutes = () => {
     return (
         <Routes>
             <Route>
                 <Route index element={<Homepage />} />
-                <Route path="signin" element={<Signin />} />
-                <Route path="signup" element={<Signup />} />
-                <Route path="laptop" element={<Laptop />} />
-                <Route path="cart" element={<Cart />} />
+                <Route path="/signin" element={<Signin />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/laptop/:page" element={<Laptop />} />
+                <Route path="/cart" element={<Cart />} />
                 <Route path="*" element={<NoPage />} />
             </Route>
         </Routes>

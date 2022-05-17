@@ -16,6 +16,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { ShoppingCart } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux/es/exports";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -83,6 +84,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
 
   const menuId = "primary-search-account-menu";
   const navigate = useNavigate();
+  const name = useSelector((state) => state.user.name);
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -99,7 +101,13 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Hồ sơ</MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate("/profile");
+        }}
+      >
+        Hồ sơ
+      </MenuItem>
       <MenuItem
         onClick={() => {
           navigate("/signin");
@@ -145,7 +153,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
         >
           <AccountCircle />
         </IconButton>
-        <p>Người dùng</p>
+        <p>{name}</p>
       </MenuItem>
     </Menu>
   );
@@ -189,7 +197,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
               </Badge>
             </IconButton>
           </Tooltip>
-          <Tooltip title="Người dùng">
+          <Tooltip title={name}>
             <IconButton
               size="large"
               edge="end"

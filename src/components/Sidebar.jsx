@@ -13,8 +13,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-import Navbar from "../Navbar";
-import { Home, Laptop, ModeNight, Settings } from "@mui/icons-material";
+import Navbar from "./Navbar";
+import {
+  Category,
+  Home,
+  Laptop,
+  ModeNight,
+  Settings,
+} from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -160,7 +166,7 @@ const Sidebar = () => {
                 justifyContent: "center",
               }}
             >
-              <Laptop />
+              <Category />
             </ListItemIcon>
             <ListItemText primary="Sản phẩm" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -169,7 +175,7 @@ const Sidebar = () => {
               <ListItemButton
                 sx={{ pl: 3.5 }}
                 onClick={() => {
-                  navigate("laptop");
+                  navigate("/laptop/1");
                 }}
               >
                 <ListItemIcon>
@@ -208,7 +214,7 @@ const Sidebar = () => {
                 <ListItemIcon>
                   <ModeNight />
                 </ListItemIcon>
-                <ListItemText primary="Night mode" />
+                <ListItemText primary="Chế độ tối" />
               </ListItemButton>
             </List>
           </Collapse>

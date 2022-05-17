@@ -9,13 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import PaginationLink from "../Pagination";
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const Feed = () => {
   return (
-    <Container sx={{ py: 18 }} maxWidth="md">
+    <Container sx={{ py: 18 }} maxWidth="lg">
       {/* End hero unit */}
-      <Grid container spacing={4} paddingLeft={7}>
+      <PaginationLink />
+      <Grid container spacing={7} paddingLeft={7}>
         {cards.map((card) => (
           <Grid item key={card} xs={12} sm={4} md={3}>
             <Card
@@ -25,7 +27,7 @@ const Feed = () => {
                 component="img"
                 sx={{
                   // 16:9
-                  pt: "16.25%",
+                  pt: "4.25%",
                 }}
                 image="https://hanoicomputercdn.com/media/product/250_62576_laptop_asus_vivobook_m7400qc_18.jpg"
                 alt="random"

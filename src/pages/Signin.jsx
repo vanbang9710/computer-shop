@@ -15,6 +15,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../theme";
 import { useNavigate } from "react-router-dom";
 import { Link } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { update } from "../redux/userSlice";
 
 function Copyright(props) {
   const navigate = useNavigate();
@@ -43,12 +45,19 @@ function Copyright(props) {
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setName(data.get("email"));
+    setEmail(data.get("email"));
+    dispatch(update({ name: data.get("email"), email: data.get("email") }));
     console.log({
-      email: data.get("email"),
+      name: name,
+      email: email,
       password: data.get("password"),
     });
   };
