@@ -8,10 +8,10 @@ export default function BasicPagination() {
   const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPage(value);
-    navigate("/laptop/" + page);
+    navigate("/laptop/" + value);
   };
   return (
-    <Box marginBottom={10} paddingLeft={7}>
+    <Box marginBottom={5} paddingLeft={7}>
       <Pagination
         count={10}
         color="primary"
