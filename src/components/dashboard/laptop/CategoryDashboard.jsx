@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import PaginationLink from "../Pagination";
+import PaginationLink from "../PaginationDashboard";
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const Feed = () => {
@@ -88,6 +88,7 @@ const Feed = () => {
           vertical: "bottom",
           horizontal: "left",
         }}
+        sx={{ width: 400 }}
       >
         <Typography sx={{ p: 2 }}>Manufacturer: Asus</Typography>
         <Typography sx={{ p: 2 }}>Model: M7400QC-KM013W</Typography>

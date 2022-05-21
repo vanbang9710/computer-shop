@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../../components/home/Sidebar";
 import { Box } from "@mui/material";
 
 function App() {
