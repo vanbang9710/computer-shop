@@ -1,13 +1,15 @@
 import { Box } from "@mui/material";
 import React from "react";
+import Category from "../../components/dashboard/laptop/CategoryDashboard";
 import Sidebar from "../../components/dashboard/SidebarDashboard";
 
-const ModifyLaptop = () => {
+const Laptop = () => {
   return (
     <Box>
       <Sidebar />
+      <Category />
     </Box>
   );
 };
 
-export default ModifyLaptop;
+export default Laptop;

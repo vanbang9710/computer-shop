@@ -10,7 +10,8 @@ import Signup from "../pages/Signup";
 import Laptop from "../pages/home/Laptop";
 import Profile from "../pages/Profile";
 import Dashboard from "../pages/dashboard/Dashboard";
-import ModifyLaptop from "../pages/dashboard/ModifyLaptop"
+import LaptopDashboard from "../pages/dashboard/LaptopDashboard"
+import ModifyLaptop from "../pages/dashboard/ModifyLaptop";
 
 const MainRoutes = () => {
     return (
@@ -23,7 +24,8 @@ const MainRoutes = () => {
                 <Route path="/laptop/:page" element={<Laptop />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/dashboard/laptop/:page" element={<ModifyLaptop />} />
+                <Route path="/dashboard/laptop/:page" element={<LaptopDashboard />} />
+                <Route path="/dashboard/laptop/modify" element={<ModifyLaptop />} />
                 <Route path="*" element={<NoPage />} />
             </Route>
         </Routes>
