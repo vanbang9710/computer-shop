@@ -78,7 +78,7 @@ const Category = () => {
                   27999000₫
                 </Typography>
                 <Tooltip title="Thêm vào giỏ">
-                  <IconButton sx={{ marginLeft: 20 }}>
+                  <IconButton sx={{ marginLeft: 22 }}>
                     <ShoppingCart />
                   </IconButton>
                 </Tooltip>

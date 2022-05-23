@@ -17,6 +17,7 @@ import {
 import React from "react";
 import PaginationLink from "../PaginationDashboard";
 import Filter from "../../common/Filter";
+import { useNavigate } from "react-router-dom";
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const Category = () => {
@@ -32,6 +33,11 @@ const Category = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/dashboard/laptop/modify");
+  };
 
   return (
     <Container sx={{ py: 18 }} maxWidth="lg">
@@ -80,7 +86,7 @@ const Category = () => {
                 </Typography>
                 <ButtonGroup variant="text" sx={{ marginLeft: 17 }}>
                   <Tooltip title="Sửa thông tin">
-                    <IconButton>
+                    <IconButton onClick={handleNavigate}>
                       <Mode />
                     </IconButton>
                   </Tooltip>
