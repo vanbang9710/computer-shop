@@ -12,6 +12,7 @@ import Profile from "../pages/Profile";
 import Dashboard from "../pages/dashboard/Dashboard";
 import LaptopDashboard from "../pages/dashboard/LaptopDashboard"
 import ModifyLaptop from "../pages/dashboard/ModifyLaptop";
+import Checkout from "../pages/Checkout";
 
 const MainRoutes = () => {
     return (
@@ -21,8 +22,9 @@ const MainRoutes = () => {
                 <Route path="/signin" element={<Signin />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/laptop/:page" element={<Laptop />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/laptop/:page" element={<Laptop />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/dashboard/laptop/:page" element={<LaptopDashboard />} />
                 <Route path="/dashboard/laptop/modify" element={<ModifyLaptop />} />
