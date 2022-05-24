@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  CssBaseline,
   FormControl,
   Input,
   InputAdornment,
@@ -31,18 +32,18 @@ const StyleToolbar = styled(Toolbar)({
 const UserInfo = () => {
   return (
     <ThemeProvider theme={theme}>
-      <AppBar sx={{ height: "970px" }}>
+      <Box sx={{ height: "970px" }}>
         <Box flex={4} p={6}>
           <Stack direction="row" spacing={1} margin="20px">
             <Avatar sx={{ width: "100px", height: "100px" }} />
             <StyleToolbar>Họ và tên</StyleToolbar>
           </Stack>
-          <Box sx={{ "& > :not(style)": { m: 1 } }} border="2px solid white">
+          <Box sx={{ "& > :not(style)": { m: 1 } }} border="2px solid black">
             <Box sx={{ display: "flex", alignItems: "flex-end" }}>
               <Button
                 startIcon={<BuildIcon />}
                 variant="outlined"
-                sx={{ border: "2px solid white" }}
+                sx={{ border: "2px solid black" }}
               >
                 Sửa
               </Button>
@@ -53,7 +54,7 @@ const UserInfo = () => {
               <Button
                 startIcon={<BuildIcon />}
                 variant="outlined"
-                sx={{ border: "2px solid white" }}
+                sx={{ border: "2px solid black" }}
               >
                 Sửa
               </Button>
@@ -71,7 +72,7 @@ const UserInfo = () => {
               <Button
                 startIcon={<BuildIcon />}
                 variant="outlined"
-                sx={{ border: "2px solid white" }}
+                sx={{ border: "2px solid black" }}
               >
                 Sửa
               </Button>
@@ -93,20 +94,21 @@ const UserInfo = () => {
             <Button
               startIcon={<SaveAltIcon />}
               variant="outlined"
-              sx={{ border: "2px solid white" }}
+              sx={{ border: "2px solid black" }}
             >
               Lưu những thay đổi
             </Button>
             <Button
               startIcon={<LogoutIcon />}
               variant="outlined"
-              sx={{ border: "2px solid white" }}
+              sx={{ border: "2px solid black" }}
             >
               Đăng xuất
             </Button>
           </Stack>
         </Box>
-      </AppBar>
+      </Box>
+      <CssBaseline />
     </ThemeProvider>
   );
 };
