@@ -1,9 +1,7 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -16,13 +14,22 @@ import AddressForm from "../components/checkout/AddressForm";
 import PaymentForm from "../components/checkout/PaymentForm";
 import Review from "../components/checkout/Review";
 import { theme } from "../theme";
+import NavBar from "../components/common/NavBar";
+import { useNavigate } from "react-router-dom";
 
 function Copyright() {
+  const navigate = useNavigate();
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link
+        color="inherit"
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        B2H
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -30,7 +37,11 @@ function Copyright() {
   );
 }
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = [
+  "Địa chỉ giao hàng",
+  "Phương thức thanh toán",
+  "Xem lại đơn hàng",
+];
 
 function getStepContent(step) {
   switch (step) {
@@ -59,28 +70,14 @@ export default function Checkout() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar
-        position="absolute"
-        color="default"
-        elevation={0}
-        sx={{
-          position: "relative",
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
-      >
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+      <NavBar />
+      <Container component="main" maxWidth="asm" sx={{ mb: 4 }}>
         <Paper
           variant="outlined"
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
         >
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Thanh toán
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
@@ -93,12 +90,10 @@ export default function Checkout() {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Cảm ơn vì đã đặt hàng!
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Chúng tôi sẽ liên hệ với bạn khi hàng được chuyển đến.
                 </Typography>
               </React.Fragment>
             ) : (

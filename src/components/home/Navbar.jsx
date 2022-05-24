@@ -180,7 +180,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
           component="div"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
-          HBH
+          B2H
         </Typography>
         <Search>
           <SearchIconWrapper>

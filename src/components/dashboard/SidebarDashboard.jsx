@@ -152,7 +152,7 @@ const Sidebar = () => {
             <ListItemText primary="Trang chủ" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
           <ListItemButton
-            key="Tổng quan"
+            key="Dashboard"
             sx={{
               minHeight: 48,
               justifyContent: open ? "initial" : "center",
@@ -175,7 +175,7 @@ const Sidebar = () => {
           </ListItemButton>
           <ListItemButton
             onClick={handleExpandProduct}
-            key="Sản phẩm"
+            key="Chỉnh sản phẩm"
             sx={{
               minHeight: 48,
               justifyContent: open ? "initial" : "center",
