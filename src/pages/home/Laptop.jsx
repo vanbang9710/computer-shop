@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 import React from "react";
-import Feed from "../components/laptop/Feed";
-import Sidebar from "../components/Sidebar";
+import Category from "../../components/home/laptop/Category";
+import Sidebar from "../../components/home/Sidebar";
 
 const Laptop = () => {
   return (
     <Box>
       <Sidebar />
-      <Feed />
+      <Category />
     </Box>
   );
 };
