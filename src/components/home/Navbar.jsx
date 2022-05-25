@@ -85,6 +85,9 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
   const menuId = "primary-search-account-menu";
   const navigate = useNavigate();
   const name = useSelector((state) => state.user.name);
+  const handleNavigate = () => {
+    navigate("/cart");
+  };
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -177,7 +180,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
           component="div"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
-          HBH
+          B2H
         </Typography>
         <Search>
           <SearchIconWrapper>
@@ -190,7 +193,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
         </Search>
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
-          <Tooltip title="Giỏ hàng">
+          <Tooltip title="Giỏ hàng" onClick={handleNavigate}>
             <IconButton size="large" aria-label="show carts" color="inherit">
               <Badge badgeContent={1} color="error">
                 <ShoppingCart />
