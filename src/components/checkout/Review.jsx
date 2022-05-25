@@ -7,41 +7,35 @@ import Grid from "@mui/material/Grid";
 
 const products = [
   {
-    name: "Product 1",
+    name: "Laptop Asus Vivobook Pro 14X OLED M7400QC-KM013W-1",
     desc: "A nice thing",
-    price: "$9.99",
+    price: "27999000₫",
   },
   {
-    name: "Product 2",
+    name: "Laptop Asus Vivobook Pro 14X OLED M7400QC-KM013W-2",
     desc: "Another thing",
-    price: "$3.45",
+    price: "27999000₫",
   },
   {
-    name: "Product 3",
+    name: "Laptop Asus Vivobook Pro 14X OLED M7400QC-KM013W-3",
     desc: "Something else",
-    price: "$6.51",
+    price: "27999000₫",
   },
   {
-    name: "Product 4",
+    name: "Laptop Asus Vivobook Pro 14X OLED M7400QC-KM013W-4",
     desc: "Best thing of all",
-    price: "$14.11",
+    price: "27999000₫",
   },
-  { name: "Shipping", desc: "", price: "Free" },
+  { name: "Phí vận chuyển", desc: "", price: "Miễn phí" },
 ];
 
 const addresses = ["1 MUI Drive", "Reactville", "Anytown", "99999", "USA"];
-const payments = [
-  { name: "Card type", detail: "Visa" },
-  { name: "Card holder", detail: "Mr John Smith" },
-  { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
-  { name: "Expiry date", detail: "04/2024" },
-];
 
 export default function Review() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        Đơn hàng
       </Typography>
       <List disablePadding>
         {products.map((product) => (
@@ -54,34 +48,23 @@ export default function Review() {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $34.06
+            27999000₫
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Shipping
+            Thông tin giao nhận
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
+          <Typography gutterBottom>Vũ Đức Hiếu</Typography>
           <Typography gutterBottom>{addresses.join(", ")}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Payment details
+            Phương thức thanh toán
           </Typography>
-          <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
-          </Grid>
+          <Typography>Thanh toán khi giao hàng (COD)</Typography>
         </Grid>
       </Grid>
     </React.Fragment>

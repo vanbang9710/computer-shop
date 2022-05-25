@@ -15,6 +15,7 @@ import ListItemText from "@mui/material/ListItemText";
 
 import Navbar from "./NavbarDashboard";
 import {
+  Add,
   AddShoppingCart,
   Dashboard,
   Home,
@@ -205,6 +206,17 @@ const Sidebar = () => {
                   <Laptop />
                 </ListItemIcon>
                 <ListItemText primary="Laptop" />
+              </ListItemButton>
+              <ListItemButton
+                sx={{ pl: 3.5 }}
+                onClick={() => {
+                  navigate("/dashboard/laptop/modify");
+                }}
+              >
+                <ListItemIcon>
+                  <Add />
+                </ListItemIcon>
+                <ListItemText primary="Thêm sản phẩm" />
               </ListItemButton>
             </List>
           </Collapse>

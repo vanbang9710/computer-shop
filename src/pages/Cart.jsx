@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
-import CartContent from "../components/common/cartcontent/CartContent";
+import CartContent from "../components/cartcontent/CartContent";
 import NavBar from "../components/common/NavBar";
 
 const Cart = () => {

@@ -100,10 +100,12 @@ const CartContent = () => {
           </Typography>
         </Grid>
         <Grid item marginTop={5}>
-          <ButtonGroup variant="contained">
-            <Button onClick={navigateHome}>Tiếp tục mua sắm</Button>
-            <Button onClick={navigateCheckout}>Thanh toán</Button>
-          </ButtonGroup>
+          <Button variant="text" onClick={navigateHome}>
+            Tiếp tục mua sắm
+          </Button>
+          <Button variant="contained" onClick={navigateCheckout}>
+            Thanh toán
+          </Button>
         </Grid>
       </Grid>
     </Container>

@@ -51,7 +51,7 @@ export default function SignUp() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Product
+          Sản phẩm
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={3}>
@@ -96,7 +96,7 @@ export default function SignUp() {
             </Grid>
           </Grid>
           <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Confirm
+            Xác nhận
           </Button>
         </Box>
       </Box>
