@@ -2,50 +2,50 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Product {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
-  @Column()
+  @Column({ unique: true })
   name: string;
-  @Column()
+  @Column({ default: '' })
   thumb: string;
   @Column()
   price: number;
-  @Column()
+  @Column({ default: '' })
   manufacturer: string;
-  @Column()
+  @Column({ default: '' })
   model: string;
-  @Column()
+  @Column({ default: '' })
   color: string;
-  @Column()
+  @Column({ default: '' })
   processor: string;
-  @Column()
+  @Column({ default: '' })
   maxMemory: string;
-  @Column()
+  @Column({ default: '' })
   graphicProcessor: string;
-  @Column()
+  @Column({ default: '' })
   hardDrives: string;
-  @Column()
+  @Column({ default: '' })
   optDrives: string;
-  @Column()
+  @Column({ default: '' })
   display: string;
-  @Column()
+  @Column({ default: '' })
   webcam: string;
-  @Column()
+  @Column({ default: '' })
   audio: string;
-  @Column()
+  @Column({ default: '' })
   wiredConnection: string;
-  @Column()
+  @Column({ default: '' })
   wirelessConnection: string;
-  @Column()
+  @Column({ type: 'varchar', length: 500 })
   ports: string;
-  @Column()
+  @Column({ default: '' })
   battery: string;
-  @Column()
+  @Column({ default: '' })
   dimensions: string;
-  @Column()
+  @Column({ default: '' })
   weight: string;
-  @Column()
+  @Column({ default: '' })
   os: string;
-  @Column()
+  @Column({ default: '' })
   accessories: string;
 }

@@ -6,23 +6,26 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Product } from './entities/product.entity';
+import { GetProductsFilterDto } from './dto/get-products-filter.dto';
 
-@Controller('products')
+@Controller('/api/products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
+  @Post('/create')
+  createProduct(@Body() createProductDto: CreateProductDto): Promise<Product> {
+    return this.productsService.createProduct(createProductDto);
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  getProducts(@Query() filterDto: GetProductsFilterDto): Promise<Product[]> {
+    return this.productsService.getProducts(filterDto);
   }
 
   @Get(':id')

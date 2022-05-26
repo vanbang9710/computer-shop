@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmExModule } from './database/typeorm-ex.module';
-import { ProductsRepository } from './products/dto/products.repository';
+import { ProductsRepository } from './products/products.repository';
 import { Product } from './products/entities/product.entity';
 import { ProductsModule } from './products/products.module';
 
@@ -17,7 +17,7 @@ import { ProductsModule } from './products/products.module';
       username: 'root',
       password: 'mysql',
       database: 'productshop',
-      autoLoadEntities: true,
+      // autoLoadEntities: true,
       synchronize: true,
       dropSchema: true,
       entities: [Product],
