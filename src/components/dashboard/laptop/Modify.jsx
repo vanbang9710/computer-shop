@@ -94,6 +94,17 @@ export default function SignUp() {
                 placeholder="Link"
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="quantity"
+                name="quantity"
+                required
+                fullWidth
+                id="quantity"
+                label="Quantity"
+                placeholder="Quantity"
+              />
+            </Grid>
           </Grid>
           <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
             Xác nhận

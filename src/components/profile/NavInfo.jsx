@@ -11,7 +11,7 @@ const NavInfo = () => {
   return (
     <Box position="static">
       <AppBar>
-        <StyleToolbar>HBH - sự thỏa mãn tuyệt đối !</StyleToolbar>
+        <StyleToolbar>B2H - sự thỏa mãn tuyệt đối !</StyleToolbar>
       </AppBar>
     </Box>
   );

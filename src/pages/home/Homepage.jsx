@@ -1,22 +1,12 @@
-import Sidebar from "../components/Sidebar";
-import Middle from "../components/homepage/Middle";
-import Right from "../components/homepage/Right";
-import { Box, Stack } from "@mui/material";
+import Sidebar from "../../components/home/Sidebar";
+import HomepageContent from "../../components/home/homepage/HomepageContent";
+import { Box } from "@mui/material";
 
 function App() {
   return (
     <Box>
       <Sidebar />
-      <Stack
-        direction="row"
-        spacing={2}
-        justifyContent="space-between"
-        marginTop={10}
-        marginLeft={8}
-      >
-        <Middle />
-        <Right />
-      </Stack>
+      <HomepageContent />
     </Box>
   );
 }

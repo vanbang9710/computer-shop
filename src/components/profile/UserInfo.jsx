@@ -1,31 +1,17 @@
 import {
-  AppBar,
-  Avatar,
   Box,
   Button,
   Container,
   CssBaseline,
-  FormControl,
   Grid,
-  Input,
-  InputAdornment,
-  InputLabel,
-  Stack,
-  styled,
   TextField,
-  Toolbar,
   Typography,
 } from "@mui/material";
 import React from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
-import EmailIcon from "@mui/icons-material/Email";
-import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import HomeIcon from "@mui/icons-material/Home";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
-import BuildIcon from "@mui/icons-material/Build";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../../theme";
-import { LaptopWindowsOutlined } from "@mui/icons-material";
 
 const UserInfo = () => {
   return (

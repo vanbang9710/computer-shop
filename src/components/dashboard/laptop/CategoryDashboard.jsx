@@ -14,12 +14,14 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import PaginationLink from "../PaginationDashboard";
 import Filter from "../../common/Filter";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAll } from "../../../redux/laptopGetSlice";
+import { updateInfo } from "../../../redux/laptopInfoSlice";
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const Category = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -31,6 +33,10 @@ const Category = () => {
     setAnchorEl(null);
   };
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const navigate = useNavigate();
@@ -38,6 +44,20 @@ const Category = () => {
   const handleNavigate = () => {
     navigate("/dashboard/laptop/modify");
   };
+
+  const cards = useSelector((state) => state.laptopGetAll.laptopInfo);
+  const cardInfo = useSelector((state) => state.laptopInfo.info);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // GET Request.
+    fetch("http://localhost:3001/api/products", { mode: "cors" })
+      // Handle success
+      .then((response) => response.json()) // convert to json
+      .then((data) => {
+        dispatch(getAll(data));
+      }) //print data to console
+      .catch((err) => console.log(err)); // Catch errors
+  }, [dispatch]);
 
   return (
     <Container sx={{ py: 18 }} maxWidth="lg">
@@ -55,7 +75,7 @@ const Category = () => {
       </Container>
       <Grid container spacing={7}>
         {cards.map((card) => (
-          <Grid item key={card} xs={12} sm={6} md={4}>
+          <Grid item key={card.name} xs={12} sm={6} md={4}>
             <Card
               sx={{
                 height: "100%",
@@ -70,19 +90,22 @@ const Category = () => {
                     // 16:9
                     pt: "6.25%",
                   }}
-                  image="https://hanoicomputercdn.com/media/product/250_62576_laptop_asus_vivobook_m7400qc_18.jpg"
+                  image={card.thumb}
                   alt="random"
-                  onClick={handleClick}
+                  onClick={(event) => {
+                    handleClick(event);
+                    dispatch(updateInfo(card));
+                  }}
                 />
                 <CardContent sx={{ cursor: "default" }}>
                   <Typography gutterBottom variant="h7" component="h4">
-                    Laptop Asus Vivobook Pro 14X OLED M7400QC-KM013W
+                    {card.name}
                   </Typography>
                 </CardContent>
               </CardActionArea>
               <CardActions sx={{ cursor: "default" }}>
                 <Typography variant="h6" component="h4" sx={{ marginLeft: 1 }}>
-                  27999000₫
+                  {card.price}₫
                 </Typography>
                 <ButtonGroup variant="text" sx={{ marginLeft: 17 }}>
                   <Tooltip title="Sửa thông tin">
@@ -110,24 +133,27 @@ const Category = () => {
           vertical: "bottom",
           horizontal: "left",
         }}
-        sx={{ width: 400 }}
+        PaperProps={{ style: { width: "400px" } }}
       >
-        <Typography sx={{ p: 2 }}>Manufacturer: Asus</Typography>
-        <Divider />
-        <Typography sx={{ p: 2 }}>Model: M7400QC-KM013W</Typography>
-        <Divider />
-        <Typography sx={{ p: 2 }}>Color: 0°Black</Typography>
-        <Divider />
-        <Typography sx={{ p: 2 }}>
-          Processor: AMD Ryzen™ 5 5600H Mobile Processor (6-core/12-thread, 19MB
-          cache, up to 4.2 GHz max boost)
-        </Typography>
-        <Divider />
-        <Typography sx={{ p: 2 }}>MaxMemory: 16GB</Typography>
-        <Divider />
-        <Typography sx={{ p: 2 }}>
-          GraphicProcessor: "NVIDIA® GeForce® RTX™ 3050 Laptop GPU
-        </Typography>
+        {Object.keys(cardInfo)
+          .filter(
+            (key) =>
+              key !== "id" &&
+              key !== "name" &&
+              key !== "thumb" &&
+              key !== "price"
+          )
+          .map((keyName, keyIndex) => {
+            return (
+              <div>
+                <Typography sx={{ p: 1 }}>
+                  {capitalizeFirstLetter(keyName)}:{" "}
+                  {cardInfo[keyName] ? cardInfo[keyName] : ""}
+                </Typography>
+                <Divider />
+              </div>
+            );
+          })}
       </Popover>
     </Container>
   );
