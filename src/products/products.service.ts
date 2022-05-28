@@ -31,8 +31,14 @@ export class ProductsService {
     return found;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async updateProduct(
+    id: number,
+    updateProductDto: UpdateProductDto,
+  ): Promise<Product> {
+    const product = await this.getProductById(id);
+    const updatedProduct = { ...product, ...updateProductDto };
+    await this.productsRepository.update(id, updatedProduct);
+    return updatedProduct;
   }
 
   async deleteProduct(id: number): Promise<void> {

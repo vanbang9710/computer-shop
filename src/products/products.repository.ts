@@ -10,19 +10,6 @@ import {
 
 @CustomRepository(Product)
 export class ProductsRepository extends Repository<Product> {
-  async getProducts(filterDto: GetProductsFilterDto): Promise<Product[]> {
-    const { name, manufacturer } = filterDto;
-    const query = this.createQueryBuilder('product');
-
-    if (name) {
-    }
-
-    if (manufacturer) {
-    }
-
-    const products = await query.getMany();
-    return products;
-  }
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
     const {
       quantity,
@@ -90,4 +77,29 @@ export class ProductsRepository extends Repository<Product> {
     }
     return product;
   }
+
+  async getProducts(filterDto: GetProductsFilterDto): Promise<Product[]> {
+    const { name, manufacturer } = filterDto;
+    const query = this.createQueryBuilder('product');
+
+    if (name) {
+      query.andWhere('(LOWER(product.name) LIKE LOWER(:name))', {
+        name: `%${name}%`,
+      });
+    }
+
+    if (manufacturer) {
+    }
+
+    const products = await query.getMany();
+    return products;
+  }
+
+  // async updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
+  //   const product = await this.getProductById(id);
+
+  //   const updatedProduct = { ...product, ...updateProductDto };
+  //   await this.productsRepository.update(id, updatedProduct);
+  //   return updatedProduct;
+  // }
 }
