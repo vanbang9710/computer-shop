@@ -19,15 +19,53 @@ import Filter from "../../common/Filter";
 import { useDispatch, useSelector } from "react-redux";
 import { getAll } from "../../../redux/laptopGetSlice";
 import { updateInfo } from "../../../redux/laptopInfoSlice";
-import { useEffect } from "react";
+import { useEffect} from "react";
 
 const Category = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  //const [orderList, setOrderList] = React.useState([]||sessionStorage.getItem("orderList"));
+  let orderList = JSON.parse(sessionStorage.getItem("orderList"))||[];
+  let productQuantity = sessionStorage.getItem("productQuantity")||0;
+  
+  const clickOrder = (card) => {
+    let duplicate = false;
+    let choiceName = card.name;
+    let productId = card.id;
 
+    for (let j = 0; j < orderList.length && duplicate === false; j++) {
+        if (orderList[j].Id === productId) {
+            orderList[j].Quantity++;
+            productQuantity++;
+            orderList[j].Id = productId;
+            duplicate = true;
+        }
+    }
+
+    // Push new choice to orderList.
+    if (duplicate === false) {
+        let choice = [{
+            Id: productId,
+            Name: choiceName,
+            Price: card.price,
+            Thumb: card.thumb,
+            Quantity: 1
+        }]
+        orderList = orderList.concat(choice);
+        productQuantity++;
+    }
+
+    alert("Added product to shopping cart!");
+
+    // Update sessionStorage.
+    sessionStorage.setItem('orderList', JSON.stringify(orderList));
+    sessionStorage.setItem('productQuantity', productQuantity);
+  }
+
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -102,8 +140,11 @@ const Category = () => {
                   {card.price}₫
                 </Typography>
                 <Tooltip title="Thêm vào giỏ">
-                  <IconButton sx={{ marginLeft: 22 }}>
-                    <ShoppingCart />
+                  <IconButton sx={{ marginLeft: 22 }} 
+                  onClick={() => {
+                      clickOrder(card);
+                  }}>
+                    <ShoppingCart/>
                   </IconButton>
                 </Tooltip>
               </CardActions>

@@ -5,33 +5,23 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 
-const products = [
-  {
-    name: "Laptop Asus Vivobook Pro 14X OLED M7400QC-KM013W-1",
-    desc: "A nice thing",
-    price: "27999000₫",
-  },
-  {
-    name: "Laptop Asus Vivobook Pro 14X OLED M7400QC-KM013W-2",
-    desc: "Another thing",
-    price: "27999000₫",
-  },
-  {
-    name: "Laptop Asus Vivobook Pro 14X OLED M7400QC-KM013W-3",
-    desc: "Something else",
-    price: "27999000₫",
-  },
-  {
-    name: "Laptop Asus Vivobook Pro 14X OLED M7400QC-KM013W-4",
-    desc: "Best thing of all",
-    price: "27999000₫",
-  },
-  { name: "Phí vận chuyển", desc: "", price: "Miễn phí" },
-];
+const products =(JSON.parse(sessionStorage.getItem("orderList"))||[]).concat([{ Name: "Phí vận chuyển", Price: "Miễn phí" }]);
+let totalPrice = sessionStorage.getItem("totalPrice")||0;
 
 const addresses = ["1 MUI Drive", "Reactville", "Anytown", "99999", "USA"];
 
+function executeOderList() {
+  //todo: call api to execute order
+  
+  //delete orderList in sessionStorage
+  sessionStorage.removeItem("productQuantity");
+  sessionStorage.removeItem("orderList");
+  sessionStorage.removeItem("totalPrice");
+}
+
 export default function Review() {
+  //when click button "ĐẶT HÀNG"
+  
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -39,16 +29,16 @@ export default function Review() {
       </Typography>
       <List disablePadding>
         {products.map((product) => (
-          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+          <ListItem key={product.Name} sx={{ py: 1, px: 0 }}>
+            <ListItemText primary={product.Name} secondary={"Số lượng: " + product.Quantity} />
+            <Typography variant="body2">{product.Price}</Typography>
           </ListItem>
         ))}
 
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            27999000₫
+            {totalPrice}₫
           </Typography>
         </ListItem>
       </List>

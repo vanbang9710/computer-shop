@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-export default function BasicTextFields() {
+export default function BasicTextFields(props) {
   return (
     <Box
       component="form"
@@ -17,7 +17,7 @@ export default function BasicTextFields() {
         id="outlined-basic"
         label="Số lượng"
         variant="outlined"
-        defaultValue={1}
+        defaultValue={props.quantity}
       />
     </Box>
   );
