@@ -25,8 +25,13 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int NOT NULL AUTO_INCREMENT,
   `quantity` int NOT NULL DEFAULT '1000',
+<<<<<<< HEAD
   `name` varchar(161) NOT NULL,
   `thumb` varchar(153) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+=======
+  `name` varchar(161) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `thumb` varchar(153) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+>>>>>>> 303133b951e44711cf3ee0c0ef42e2c6ea94e07a
   `price` int NOT NULL,
   `manufacturer` varchar(9) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `model` varchar(54) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
@@ -72,4 +77,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
 -- Dump completed on 2022-05-28 19:38:23
+=======
+-- Dump completed on 2022-05-28 17:21:48
+>>>>>>> 303133b951e44711cf3ee0c0ef42e2c6ea94e07a
