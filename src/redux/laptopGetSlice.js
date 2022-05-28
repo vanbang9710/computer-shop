@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let info = {
+const info = {
     name: "",
     thumb: "",
     price: 0,

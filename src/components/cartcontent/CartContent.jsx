@@ -14,31 +14,47 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Quantity from "./QuantitySelect";
+import { updateCartContent } from "../../redux/cartContent";
+import { updateTotalPrice } from "../../redux/totalPrice";
+import { useEffect } from "react";
 
-const cards = JSON.parse(sessionStorage.getItem("orderList"))||[];
+const cards = JSON.parse(sessionStorage.getItem("orderList")) || [];
 
 //@todo: mấy cái này khi click chưa refesh trang nên nó chưa nhận thấy thay đổi cần setState gì gì đó tôi cũng không biết
 
 //Total amount of the product in the cart
-function totalPriceOrder(card) {
+const totalPriceOrder = (card) => {
   let total = 0;
   card.forEach((item) => {
     total += item.Price * item.Quantity;
   });
   sessionStorage.setItem("totalPrice", total);
   return total;
-}
+};
 
 //delete item from cart
-function deleteItem(element) {
+const deleteItem = (element) => {
   let index = cards.indexOf(element);
-  cards.splice(index, 1);
+  if (index > -1) {
+    cards.splice(index, 1);
+  }
   sessionStorage.setItem("orderList", JSON.stringify(cards));
-}
-  
+};
 
 const CartContent = () => {
+  const dispatch = useDispatch();
+  const cartContents = useSelector((state) => state.cartContent.info);
+  const totalPrice = useSelector((state) => state.price.totalPrice);
+  let total = 0;
+  cartContents.forEach((element) => {
+    total = total + element.price * element.quantity;
+  });
+  useEffect(() => {
+    dispatch(updateTotalPrice(total));
+  }, [dispatch, cartContents, total]);
+
   const navigate = useNavigate();
   const navigateHome = () => {
     navigate("/");
@@ -54,8 +70,8 @@ const CartContent = () => {
       </Typography>
       {/* End hero unit */}
       <Grid container spacing={7}>
-        {cards.map((card) => (
-          <Grid item key={card.Name} xs={12}>
+        {cartContents.map((cart) => (
+          <Grid item key={cart.name} xs={12}>
             <Card
               sx={{
                 display: "flex",
@@ -67,21 +83,21 @@ const CartContent = () => {
                   width: 160,
                   // 16:9
                 }}
-                image={card.Thumb}
+                image={cart.thumb}
                 alt="random"
               />
               <CardContent sx={{ cursor: "default", paddingRight: 5 }}>
                 <Typography gutterBottom variant="h7" component="h4">
-                  {card.Name}
+                  {cart.name}
                 </Typography>
                 <Divider />
                 <Typography variant="h6" component="h4" paddingTop={4}>
-                  Đơn giá: {card.Price}₫
+                  Đơn giá: {cart.price}₫
                 </Typography>
               </CardContent>
               <Divider orientation="vertical" flexItem />
               <CardContent>
-                <Quantity quantity = {card.Quantity} id = {card.Id} />
+                <Quantity quantity={cart.quantity} id={cart.id} />
               </CardContent>
               <Divider orientation="vertical" flexItem />
               <CardContent
@@ -91,13 +107,17 @@ const CartContent = () => {
                   Thành tiền
                 </Typography>
                 <Typography variant="h6" component="h4">
-                  {card.Quantity*card.Price}₫
+                  {cart.quantity * cart.price}₫
                 </Typography>
               </CardContent>
               <Divider orientation="vertical" flexItem />
               <CardContent sx={{ paddingTop: 7, paddingLeft: 2 }}>
                 <Tooltip title="Xóa khỏi giỏ hàng">
-                  <IconButton aria-label="filter" color="inherit" onClick={deleteItem(card)}>
+                  <IconButton
+                    aria-label="filter"
+                    color="inherit"
+                    //onClick={deleteItem(card)}
+                  >
                     <Delete />
                   </IconButton>
                 </Tooltip>
@@ -115,7 +135,7 @@ const CartContent = () => {
       >
         <Grid item marginTop={2}>
           <Typography variant="h6" component="h4">
-            Tổng tiền: {totalPriceOrder(cards)}₫
+            Tổng tiền: {totalPrice}₫
           </Typography>
         </Grid>
         <Grid item marginTop={5}>

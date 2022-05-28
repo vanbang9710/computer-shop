@@ -19,55 +19,64 @@ import Filter from "../../common/Filter";
 import { useDispatch, useSelector } from "react-redux";
 import { getAll } from "../../../redux/laptopGetSlice";
 import { updateInfo } from "../../../redux/laptopInfoSlice";
-import { useEffect} from "react";
+import { useEffect } from "react";
+import { updateBadge } from "../../../redux/badgeSlice";
+import { updateCartContent } from "../../../redux/cartContent";
 
 const Category = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
   //const [orderList, setOrderList] = React.useState([]||sessionStorage.getItem("orderList"));
-  let orderList = JSON.parse(sessionStorage.getItem("orderList"))||[];
-  let productQuantity = sessionStorage.getItem("productQuantity")||0;
-  
+  let orderList = JSON.parse(sessionStorage.getItem("orderList")) || [];
+  let productQuantity = sessionStorage.getItem("productQuantity") || 0;
+
   const clickOrder = (card) => {
     let duplicate = false;
     let choiceName = card.name;
     let productId = card.id;
 
     for (let j = 0; j < orderList.length && duplicate === false; j++) {
-        if (orderList[j].Id === productId) {
-            orderList[j].Quantity++;
-            productQuantity++;
-            orderList[j].Id = productId;
-            duplicate = true;
-        }
+      if (orderList[j].id === productId) {
+        orderList[j].quantity++;
+        productQuantity++;
+        orderList[j].id = productId;
+        duplicate = true;
+      }
     }
 
     // Push new choice to orderList.
     if (duplicate === false) {
-        let choice = [{
-            Id: productId,
-            Name: choiceName,
-            Price: card.price,
-            Thumb: card.thumb,
-            Quantity: 1
-        }]
-        orderList = orderList.concat(choice);
-        productQuantity++;
+      let choice = [
+        {
+          id: productId,
+          name: choiceName,
+          price: card.price,
+          thumb: card.thumb,
+          quantity: 1,
+        },
+      ];
+      orderList = orderList.concat(choice);
+      productQuantity++;
     }
 
-    alert("Added product to shopping cart!");
+    dispatch(updateBadge(productQuantity));
 
     // Update sessionStorage.
-    sessionStorage.setItem('orderList', JSON.stringify(orderList));
-    sessionStorage.setItem('productQuantity', productQuantity);
-  }
+    sessionStorage.setItem("orderList", JSON.stringify(orderList));
+    sessionStorage.setItem("productQuantity", productQuantity);
+  };
 
-  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleChange = () => {
+    const carts = JSON.parse(sessionStorage.getItem("orderList")) || [];
+    dispatch(updateCartContent(carts));
   };
 
   function capitalizeFirstLetter(string) {
@@ -79,7 +88,7 @@ const Category = () => {
 
   const cards = useSelector((state) => state.laptopGetAll.laptopInfo);
   const cardInfo = useSelector((state) => state.laptopInfo.info);
-  const dispatch = useDispatch();
+
   useEffect(() => {
     // GET Request.
     fetch("http://localhost:3001/api/products", { mode: "cors" })
@@ -140,11 +149,14 @@ const Category = () => {
                   {card.price}₫
                 </Typography>
                 <Tooltip title="Thêm vào giỏ">
-                  <IconButton sx={{ marginLeft: 22 }} 
-                  onClick={() => {
+                  <IconButton
+                    sx={{ marginLeft: 22 }}
+                    onClick={() => {
                       clickOrder(card);
-                  }}>
-                    <ShoppingCart/>
+                      handleChange();
+                    }}
+                  >
+                    <ShoppingCart />
                   </IconButton>
                 </Tooltip>
               </CardActions>

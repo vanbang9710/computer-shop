@@ -16,7 +16,8 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { ShoppingCart } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+import { updateBadge } from "../../redux/badgeSlice";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,7 +60,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar({ open, setOpen }) {
-  const quantity = React.useState(sessionStorage.getItem('productQuantity'));
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -82,6 +82,11 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  // const dispatch = useDispatch();
+  // let productQuantity = sessionStorage.getItem("productQuantity") || 0;
+  // dispatch(updateBadge(productQuantity));
+  const badgeContent = useSelector((state) => state.badge.quantity);
 
   const menuId = "primary-search-account-menu";
   const navigate = useNavigate();
@@ -141,7 +146,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show carts" color="inherit">
-          <Badge badgeContent={quantity} color="error">
+          <Badge badgeContent={badgeContent} color="error">
             <ShoppingCart />
           </Badge>
         </IconButton>
@@ -196,7 +201,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <Tooltip title="Giỏ hàng" onClick={handleNavigate}>
             <IconButton size="large" aria-label="show carts" color="inherit">
-              <Badge badgeContent={sessionStorage.getItem('productQuantity')} color="error">
+              <Badge badgeContent={badgeContent} color="error">
                 <ShoppingCart />
               </Badge>
             </IconButton>

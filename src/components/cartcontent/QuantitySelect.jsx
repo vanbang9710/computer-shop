@@ -14,6 +14,7 @@ export default function BasicTextFields(props) {
     >
       <TextField
         required
+        disabled
         id="outlined-basic"
         label="Số lượng"
         variant="outlined"
