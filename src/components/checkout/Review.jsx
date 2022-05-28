@@ -9,7 +9,7 @@ const products =(JSON.parse(sessionStorage.getItem("orderList"))||[]).concat([{ 
 let totalPrice = sessionStorage.getItem("totalPrice")||0;
 
 const addresses = ["1 MUI Drive", "Reactville", "Anytown", "99999", "USA"];
-
+ /*
 function executeOderList() {
   //todo: call api to execute order
   
@@ -18,7 +18,7 @@ function executeOderList() {
   sessionStorage.removeItem("orderList");
   sessionStorage.removeItem("totalPrice");
 }
-
+*/
 export default function Review() {
   //when click button "ĐẶT HÀNG"
   

@@ -18,25 +18,14 @@ import { useNavigate } from "react-router-dom";
 import Quantity from "./QuantitySelect";
 
 const cards = JSON.parse(sessionStorage.getItem("orderList"))||[];
+let totalPrice = sessionStorage.getItem("totalPrice");
 
 //@todo: mấy cái này khi click chưa refesh trang nên nó chưa nhận thấy thay đổi cần setState gì gì đó tôi cũng không biết
 
-//Total amount of the product in the cart
-function totalPriceOrder(card) {
-  let total = 0;
-  card.forEach((item) => {
-    total += item.Price * item.Quantity;
-  });
-  sessionStorage.setItem("totalPrice", total);
-  return total;
-}
 
-//delete item from cart
-function deleteItem(element) {
-  let index = cards.indexOf(element);
-  cards.splice(index, 1);
-  sessionStorage.setItem("orderList", JSON.stringify(cards));
-}
+
+
+
   
 
 const CartContent = () => {
@@ -47,6 +36,7 @@ const CartContent = () => {
   const navigateCheckout = () => {
     navigate("/checkout");
   };
+ 
   return (
     <Container sx={{ py: 10 }} maxWidth="lg">
       <CssBaseline />
@@ -98,7 +88,15 @@ const CartContent = () => {
               <Divider orientation="vertical" flexItem />
               <CardContent sx={{ paddingTop: 7, paddingLeft: 2 }}>
                 <Tooltip title="Xóa khỏi giỏ hàng">
-                  <IconButton aria-label="filter" color="inherit" onClick={deleteItem(card)}>
+                  <IconButton aria-label="filter" color="inherit" onClick={()=>{
+                    console.log("Delete product at card");
+                    totalPrice -= card.Price*card.Quantity;
+                    
+                    sessionStorage.setItem("totalPrice",totalPrice);
+                    sessionStorage.setItem("productQuantity",sessionStorage.getItem("productQuantity")-card.Quantity);
+                    cards.splice(cards.indexOf(card),1);
+                    sessionStorage.setItem("orderList", JSON.stringify(cards));
+                  }}>
                     <Delete />
                   </IconButton>
                 </Tooltip>
@@ -116,7 +114,7 @@ const CartContent = () => {
       >
         <Grid item marginTop={2}>
           <Typography variant="h6" component="h4">
-            Tổng tiền: {totalPriceOrder(cards)}₫
+            Tổng tiền: {totalPrice}₫
           </Typography>
         </Grid>
         <Grid item marginTop={5}>

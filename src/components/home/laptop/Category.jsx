@@ -26,6 +26,7 @@ const Category = () => {
   //const [orderList, setOrderList] = React.useState([]||sessionStorage.getItem("orderList"));
   let orderList = JSON.parse(sessionStorage.getItem("orderList"))||[];
   let productQuantity = sessionStorage.getItem("productQuantity")||0;
+  let totalPrice = sessionStorage.getItem("totalPrice")||0;
   
   const clickOrder = (card) => {
     let duplicate = false;
@@ -35,9 +36,9 @@ const Category = () => {
     for (let j = 0; j < orderList.length && duplicate === false; j++) {
         if (orderList[j].Id === productId) {
             orderList[j].Quantity++;
-            productQuantity++;
             orderList[j].Id = productId;
             duplicate = true;
+            productQuantity++;
         }
     }
 
@@ -53,10 +54,12 @@ const Category = () => {
         orderList = orderList.concat(choice);
         productQuantity++;
     }
+    totalPrice += card.price;
 
     alert("Added product to shopping cart!");
 
     // Update sessionStorage.
+    sessionStorage.setItem("totalPrice", totalPrice);
     sessionStorage.setItem('orderList', JSON.stringify(orderList));
     sessionStorage.setItem('productQuantity', productQuantity);
   }
