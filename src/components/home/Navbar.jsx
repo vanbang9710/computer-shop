@@ -59,6 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar({ open, setOpen }) {
+  const quantity = React.useState(sessionStorage.getItem('productQuantity'));
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -140,7 +141,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show carts" color="inherit">
-          <Badge badgeContent={1} color="error">
+          <Badge badgeContent={quantity} color="error">
             <ShoppingCart />
           </Badge>
         </IconButton>
@@ -195,7 +196,7 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <Tooltip title="Giỏ hàng" onClick={handleNavigate}>
             <IconButton size="large" aria-label="show carts" color="inherit">
-              <Badge badgeContent={1} color="error">
+              <Badge badgeContent={sessionStorage.getItem('productQuantity')} color="error">
                 <ShoppingCart />
               </Badge>
             </IconButton>
