@@ -21,12 +21,8 @@ export class ProductsService {
     return this.productsRepository.getProducts(filterDto);
   }
 
-  async findOne(id: string) {
-    const found = await this.productsRepository.findOne({
-      where: {
-        id: id,
-      },
-    });
+  async getProductById(id: number): Promise<Product> {
+    const found = await this.productsRepository.findOne({ where: { id: id } });
 
     if (!found) {
       throw new NotFoundException(`Product with ID "${id}" not found`);

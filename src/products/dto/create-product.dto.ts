@@ -1,6 +1,15 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumberString,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateProductDto {
+  @IsNumberString()
+  @IsNotEmpty()
+  quantity: number;
+
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -9,12 +18,12 @@ export class CreateProductDto {
   @IsNotEmpty()
   thumb: string;
 
-  @IsNumber()
+  @IsNumberString()
   @IsNotEmpty()
   price: number;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   manufacturer: string;
 
   @IsString()
@@ -44,6 +53,10 @@ export class CreateProductDto {
   @IsString()
   @IsOptional()
   optDrives: string;
+
+  @IsString()
+  @IsOptional()
+  securities: string;
 
   @IsString()
   @IsOptional()

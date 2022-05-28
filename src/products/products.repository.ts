@@ -21,6 +21,7 @@ export class ProductsRepository extends Repository<Product> {
   }
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
     const {
+      quantity,
       name,
       thumb,
       price,
@@ -32,6 +33,7 @@ export class ProductsRepository extends Repository<Product> {
       graphicProcessor,
       hardDrives,
       optDrives,
+      securities,
       display,
       webcam,
       audio,
@@ -46,6 +48,7 @@ export class ProductsRepository extends Repository<Product> {
     } = createProductDto;
 
     const product = this.create({
+      quantity,
       name,
       thumb,
       price,
@@ -57,6 +60,7 @@ export class ProductsRepository extends Repository<Product> {
       graphicProcessor,
       hardDrives,
       optDrives,
+      securities,
       display,
       webcam,
       audio,
