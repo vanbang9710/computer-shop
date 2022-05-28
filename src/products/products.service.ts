@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsRepository } from './products.repository';
@@ -17,7 +22,7 @@ export class ProductsService {
     return this.productsRepository.createProduct(createProductDto);
   }
 
-  getProducts(filterDto: GetProductsFilterDto): Promise<Product[]> {
+  getProducts(filterDto: GetProductsFilterDto): Promise<Product[] | number> {
     return this.productsRepository.getProducts(filterDto);
   }
 
@@ -37,7 +42,16 @@ export class ProductsService {
   ): Promise<Product> {
     const product = await this.getProductById(id);
     const updatedProduct = { ...product, ...updateProductDto };
-    await this.productsRepository.update(id, updatedProduct);
+    try {
+      await this.productsRepository.update(id, updatedProduct);
+    } catch (error) {
+      if (error.code === 'ER_DUP_ENTRY') {
+        //duplicate name
+        throw new ConflictException('Name already exists');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
     return updatedProduct;
   }
 

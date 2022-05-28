@@ -78,8 +78,10 @@ export class ProductsRepository extends Repository<Product> {
     return product;
   }
 
-  async getProducts(filterDto: GetProductsFilterDto): Promise<Product[]> {
-    const { name, manufacturer, limit, offset } = filterDto;
+  async getProducts(
+    filterDto: GetProductsFilterDto,
+  ): Promise<number | Product[]> {
+    const { name, manufacturer, limit, offset, count } = filterDto;
     const query = this.createQueryBuilder('product');
 
     if (name) {
@@ -94,7 +96,12 @@ export class ProductsRepository extends Repository<Product> {
       });
     }
 
-    if (offset) {
+    if (count) {
+      const { count } = await query
+        .select('COUNT(product.id)', 'count')
+        .getRawOne();
+      return count;
+    } else if (offset) {
       query.take(limit ?? Number.MAX_SAFE_INTEGER);
       query.skip(offset);
     } else if (limit) {

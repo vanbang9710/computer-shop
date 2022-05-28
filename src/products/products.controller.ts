@@ -24,12 +24,14 @@ export class ProductsController {
   }
 
   @Get()
-  getProducts(@Query() filterDto: GetProductsFilterDto): Promise<Product[]> {
-    if (filterDto.count) {
-      // return this.productsService.
-    } else {
-      return this.productsService.getProducts(filterDto);
-    }
+  getProducts(
+    @Query() filterDto: GetProductsFilterDto,
+  ): Promise<Product[] | number> {
+    // if (filterDto.count) {
+    //   return this.productsService.countProducts(filterDto);
+    // } else {
+    return this.productsService.getProducts(filterDto);
+    // }
   }
 
   @Get(':id')
