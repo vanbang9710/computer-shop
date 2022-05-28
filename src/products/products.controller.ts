@@ -39,7 +39,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(+id);
+  deleteProduct(@Param('id') id: string): Promise<void> {
+    return this.productsService.deleteProduct(+id);
   }
 }
