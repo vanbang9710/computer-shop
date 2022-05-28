@@ -12,10 +12,10 @@ export class Product {
 
   @Column({
     type: 'varchar',
-    // default: 'NULL',
-    nullable: true,
-    charset: 'utf8mb3',
-    collation: 'utf8_general_ci',
+    // default: '',
+    nullable: false,
+    // charset: 'utf8mb3',
+    // collation: 'utf8_general_ci',
     length: 161,
     unique: true,
   })
@@ -23,8 +23,8 @@ export class Product {
 
   @Column({
     type: 'varchar',
-    // default: 'NULL',
-    nullable: true,
+    // default: '',
+    nullable: false,
     charset: 'utf8mb3',
     collation: 'utf8_general_ci',
     length: 153,

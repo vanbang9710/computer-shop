@@ -25,7 +25,11 @@ export class ProductsController {
 
   @Get()
   getProducts(@Query() filterDto: GetProductsFilterDto): Promise<Product[]> {
-    return this.productsService.getProducts(filterDto);
+    if (filterDto.count) {
+      // return this.productsService.
+    } else {
+      return this.productsService.getProducts(filterDto);
+    }
   }
 
   @Get(':id')
@@ -34,12 +38,15 @@ export class ProductsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(+id, updateProductDto);
+  updateProduct(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
+  ) {
+    return this.productsService.updateProduct(+id, updateProductDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(+id);
+  deleteProduct(@Param('id') id: string): Promise<void> {
+    return this.productsService.deleteProduct(+id);
   }
 }

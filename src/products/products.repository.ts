@@ -3,22 +3,13 @@ import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
+import {
+  ConflictException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 @CustomRepository(Product)
 export class ProductsRepository extends Repository<Product> {
-  async getProducts(filterDto: GetProductsFilterDto): Promise<Product[]> {
-    const { name, manufacturer } = filterDto;
-    const query = this.createQueryBuilder('product');
-
-    if (name) {
-    }
-
-    if (manufacturer) {
-    }
-
-    const products = await query.getMany();
-    return products;
-  }
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
     const {
       quantity,
@@ -74,7 +65,51 @@ export class ProductsRepository extends Repository<Product> {
       accessories,
     });
 
-    await this.save(product);
+    try {
+      await this.save(product);
+    } catch (error) {
+      if (error.code === 'ER_DUP_ENTRY') {
+        //duplicate name
+        throw new ConflictException('Name already exists');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
     return product;
   }
+
+  async getProducts(filterDto: GetProductsFilterDto): Promise<Product[]> {
+    const { name, manufacturer, limit, offset } = filterDto;
+    const query = this.createQueryBuilder('product');
+
+    if (name) {
+      query.andWhere('(LOWER(product.name) LIKE LOWER(:name))', {
+        name: `%${name}%`,
+      });
+    }
+
+    if (manufacturer) {
+      query.andWhere('LOWER(product.manufacturer) = LOWER(:manufacturer)', {
+        manufacturer,
+      });
+    }
+
+    if (offset) {
+      query.take(limit ?? Number.MAX_SAFE_INTEGER);
+      query.skip(offset);
+    } else if (limit) {
+      query.take(limit);
+    }
+
+    const products = await query.getMany();
+    return products;
+  }
+
+  // async updateProduct(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
+  //   const product = await this.getProductById(id);
+
+  //   const updatedProduct = { ...product, ...updateProductDto };
+  //   await this.productsRepository.update(id, updatedProduct);
+  //   return updatedProduct;
+  // }
 }

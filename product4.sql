@@ -25,8 +25,13 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int NOT NULL AUTO_INCREMENT,
   `quantity` int NOT NULL DEFAULT '1000',
+<<<<<<< HEAD
+  `name` varchar(161) NOT NULL,
+  `thumb` varchar(153) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+=======
   `name` varchar(161) DEFAULT NULL,
   `thumb` varchar(153) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+>>>>>>> 303133b951e44711cf3ee0c0ef42e2c6ea94e07a
   `price` int NOT NULL,
   `manufacturer` varchar(9) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `model` varchar(54) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
@@ -50,7 +55,7 @@ CREATE TABLE `product` (
   `accessories` varchar(73) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_22cc43e9a74d7498546e9a63e7` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=501 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

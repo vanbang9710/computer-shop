@@ -31,11 +31,21 @@ export class ProductsService {
     return found;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async updateProduct(
+    id: number,
+    updateProductDto: UpdateProductDto,
+  ): Promise<Product> {
+    const product = await this.getProductById(id);
+    const updatedProduct = { ...product, ...updateProductDto };
+    await this.productsRepository.update(id, updatedProduct);
+    return updatedProduct;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async deleteProduct(id: number): Promise<void> {
+    const result = await this.productsRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Product with ID "${id}" not found`);
+    }
   }
 }
