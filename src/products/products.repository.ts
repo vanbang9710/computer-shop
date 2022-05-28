@@ -3,6 +3,10 @@ import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
+import {
+  ConflictException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 @CustomRepository(Product)
 export class ProductsRepository extends Repository<Product> {
@@ -74,7 +78,16 @@ export class ProductsRepository extends Repository<Product> {
       accessories,
     });
 
-    await this.save(product);
+    try {
+      await this.save(product);
+    } catch (error) {
+      if (error.code === 'ER_DUP_ENTRY') {
+        //duplicate name
+        throw new ConflictException('Name already exists');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
     return product;
   }
 }
