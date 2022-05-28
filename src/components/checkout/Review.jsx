@@ -29,9 +29,9 @@ export default function Review() {
       </Typography>
       <List disablePadding>
         {products.map((product) => (
-          <ListItem key={product.Name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.Name} secondary={"Số lượng: " + product.Quantity} />
-            <Typography variant="body2">{product.Price}</Typography>
+          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
+            <ListItemText primary={product.name} secondary={"Số lượng: " + product.quantity} />
+            <Typography variant="body2">{product.price}</Typography>
           </ListItem>
         ))}
 

@@ -34,9 +34,9 @@ const Category = () => {
     let productId = card.id;
 
     for (let j = 0; j < orderList.length && duplicate === false; j++) {
-        if (orderList[j].Id === productId) {
-            orderList[j].Quantity++;
-            orderList[j].Id = productId;
+        if (orderList[j].id === productId) {
+            orderList[j].quantity++;
+            orderList[j].id = productId;
             duplicate = true;
             productQuantity++;
         }
@@ -45,11 +45,11 @@ const Category = () => {
     // Push new choice to orderList.
     if (duplicate === false) {
         let choice = [{
-            Id: productId,
-            Name: choiceName,
-            Price: card.price,
-            Thumb: card.thumb,
-            Quantity: 1
+            id: productId,
+            name: choiceName,
+            price: card.price,
+            thumb: card.thumb,
+            quantity: 1
         }]
         orderList = orderList.concat(choice);
         productQuantity++;

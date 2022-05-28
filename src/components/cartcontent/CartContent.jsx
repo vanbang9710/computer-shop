@@ -46,7 +46,7 @@ const CartContent = () => {
       {/* End hero unit */}
       <Grid container spacing={7}>
         {cards.map((card) => (
-          <Grid item key={card.Name} xs={12}>
+          <Grid item key={card.name} xs={12}>
             <Card
               sx={{
                 display: "flex",
@@ -58,21 +58,21 @@ const CartContent = () => {
                   width: 160,
                   // 16:9
                 }}
-                image={card.Thumb}
+                image={card.thumb}
                 alt="random"
               />
               <CardContent sx={{ cursor: "default", paddingRight: 5 }}>
                 <Typography gutterBottom variant="h7" component="h4">
-                  {card.Name}
+                  {card.name}
                 </Typography>
                 <Divider />
                 <Typography variant="h6" component="h4" paddingTop={4}>
-                  Đơn giá: {card.Price}₫
+                  Đơn giá: {card.price}₫
                 </Typography>
               </CardContent>
               <Divider orientation="vertical" flexItem />
               <CardContent>
-                <Quantity quantity = {card.Quantity} id = {card.Id} />
+                <Quantity quantity = {card.quantity} id = {card.id} />
               </CardContent>
               <Divider orientation="vertical" flexItem />
               <CardContent
@@ -82,7 +82,7 @@ const CartContent = () => {
                   Thành tiền
                 </Typography>
                 <Typography variant="h6" component="h4">
-                  {card.Quantity*card.Price}₫
+                  {card.quantity*card.price}₫
                 </Typography>
               </CardContent>
               <Divider orientation="vertical" flexItem />
@@ -90,10 +90,10 @@ const CartContent = () => {
                 <Tooltip title="Xóa khỏi giỏ hàng">
                   <IconButton aria-label="filter" color="inherit" onClick={()=>{
                     console.log("Delete product at card");
-                    totalPrice -= card.Price*card.Quantity;
+                    totalPrice -= card.price*card.quantity;
                     
                     sessionStorage.setItem("totalPrice",totalPrice);
-                    sessionStorage.setItem("productQuantity",sessionStorage.getItem("productQuantity")-card.Quantity);
+                    sessionStorage.setItem("productQuantity",sessionStorage.getItem("productQuantity")-card.quantity);
                     cards.splice(cards.indexOf(card),1);
                     sessionStorage.setItem("orderList", JSON.stringify(cards));
                   }}>
