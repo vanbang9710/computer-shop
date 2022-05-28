@@ -17,6 +17,7 @@ import { ShoppingCart } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux/es/exports";
+import { useEffect } from "react";
 import { updateBadge } from "../../redux/badgeSlice";
 
 const Search = styled("div")(({ theme }) => ({
@@ -83,10 +84,11 @@ export default function PrimarySearchAppBar({ open, setOpen }) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  // const dispatch = useDispatch();
-  // let productQuantity = sessionStorage.getItem("productQuantity") || 0;
-  // dispatch(updateBadge(productQuantity));
   const badgeContent = useSelector((state) => state.badge.quantity);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(updateBadge(sessionStorage.getItem("productQuantity")));
+  }, [dispatch]);
 
   const menuId = "primary-search-account-menu";
   const navigate = useNavigate();

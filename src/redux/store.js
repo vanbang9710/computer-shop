@@ -5,6 +5,7 @@ import laptopInfoReducer from "./laptopInfoSlice"
 import laptopCreateReducer from "./laptopCreateSlice";
 import cartContentReducer from "./cartContent";
 import totalPriceReducer from "./totalPrice";
+import addressReducer from "./addressSlice";
 import userReducer from "./userSlice";
 
 export default configureStore({
@@ -16,5 +17,6 @@ export default configureStore({
         laptopCreate: laptopCreateReducer,
         cartContent: cartContentReducer,
         price: totalPriceReducer,
+        address: addressReducer,
     }
 });

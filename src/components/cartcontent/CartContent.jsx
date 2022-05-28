@@ -19,35 +19,18 @@ import Quantity from "./QuantitySelect";
 import { updateCartContent } from "../../redux/cartContent";
 import { updateTotalPrice } from "../../redux/totalPrice";
 import { useEffect } from "react";
-
-const cards = JSON.parse(sessionStorage.getItem("orderList")) || [];
-
-//@todo: mấy cái này khi click chưa refesh trang nên nó chưa nhận thấy thay đổi cần setState gì gì đó tôi cũng không biết
-
-//Total amount of the product in the cart
-const totalPriceOrder = (card) => {
-  let total = 0;
-  card.forEach((item) => {
-    total += item.Price * item.Quantity;
-  });
-  sessionStorage.setItem("totalPrice", total);
-  return total;
-};
-
-//delete item from cart
-const deleteItem = (element) => {
-  let index = cards.indexOf(element);
-  if (index > -1) {
-    cards.splice(index, 1);
-  }
-  sessionStorage.setItem("orderList", JSON.stringify(cards));
-};
+import { updateBadge } from "../../redux/badgeSlice";
 
 const CartContent = () => {
+  const cards = JSON.parse(sessionStorage.getItem("orderList")) || [];
   const dispatch = useDispatch();
   const cartContents = useSelector((state) => state.cartContent.info);
+  useEffect(() => {
+    dispatch(updateCartContent(cards));
+  }, []);
   const totalPrice = useSelector((state) => state.price.totalPrice);
   let total = 0;
+  console.log(cartContents);
   cartContents.forEach((element) => {
     total = total + element.price * element.quantity;
   });
@@ -56,12 +39,13 @@ const CartContent = () => {
   }, [dispatch, cartContents, total]);
 
   const navigate = useNavigate();
-  const navigateHome = () => {
-    navigate("/");
+  const navigateLaptop = () => {
+    navigate("/laptop/1");
   };
   const navigateCheckout = () => {
     navigate("/checkout");
   };
+
   return (
     <Container sx={{ py: 10 }} maxWidth="lg">
       <CssBaseline />
@@ -116,7 +100,31 @@ const CartContent = () => {
                   <IconButton
                     aria-label="filter"
                     color="inherit"
-                    //onClick={deleteItem(card)}
+                    onClick={() => {
+                      console.log("Delete product at card");
+                      const index = cards.findIndex((object) => {
+                        return object.name === cart.name;
+                      });
+                      console.log(cards);
+                      console.log(cart);
+                      console.log(index);
+                      if (index > -1) {
+                        sessionStorage.setItem(
+                          "productQuantity",
+                          sessionStorage.getItem("productQuantity") -
+                            cart.quantity
+                        );
+                        cards.splice(index, 1);
+                        sessionStorage.setItem(
+                          "orderList",
+                          JSON.stringify(cards)
+                        );
+                        dispatch(
+                          updateBadge(sessionStorage.getItem("productQuantity"))
+                        );
+                        dispatch(updateCartContent(cards));
+                      }
+                    }}
                   >
                     <Delete />
                   </IconButton>
@@ -139,7 +147,7 @@ const CartContent = () => {
           </Typography>
         </Grid>
         <Grid item marginTop={5}>
-          <Button variant="text" onClick={navigateHome}>
+          <Button variant="text" onClick={navigateLaptop}>
             Tiếp tục mua sắm
           </Button>
           <Button variant="contained" onClick={navigateCheckout}>

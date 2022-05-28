@@ -4,12 +4,9 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
+import { useSelector } from "react-redux";
 
-const products = JSON.parse(sessionStorage.getItem("orderList")) || [];
-let totalPrice = sessionStorage.getItem("totalPrice") || 0;
-
-const addresses = ["1 MUI Drive", "Reactville", "Anytown", "99999", "USA"];
-
+/*
 function executeOderList() {
   //todo: call api to execute order
 
@@ -18,10 +15,13 @@ function executeOderList() {
   sessionStorage.removeItem("orderList");
   sessionStorage.removeItem("totalPrice");
 }
-
+*/
 export default function Review() {
   //when click button "ĐẶT HÀNG"
 
+  const products = useSelector((state) => state.cartContent.info);
+  const address = useSelector((state) => state.address.info);
+  const totalPrice = useSelector((state) => state.price.totalPrice);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -29,13 +29,12 @@ export default function Review() {
       </Typography>
       <List disablePadding>
         {products.map((product) => (
-          <ListItem key={product.Name} sx={{ py: 1, px: 0 }}>
+          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
             <ListItemText
-              primary={product.Name}
-              secondary={"Số lượng: " + product.Quantity}
-              đ
+              primary={product.name}
+              secondary={"Số lượng: " + product.quantity}
             />
-            <Typography variant="body2">{product.Price}</Typography>
+            <Typography variant="body2">{product.price}</Typography>
           </ListItem>
         ))}
         <ListItem sx={{ py: 1, px: 0 }}>
@@ -55,8 +54,10 @@ export default function Review() {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Thông tin giao nhận
           </Typography>
-          <Typography gutterBottom>Vũ Đức Hiếu</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+          <Typography gutterBottom>
+            {address.firstName + " " + address.lastName}
+          </Typography>
+          <Typography gutterBottom>{address.address}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
