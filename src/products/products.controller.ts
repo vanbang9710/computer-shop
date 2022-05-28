@@ -25,7 +25,11 @@ export class ProductsController {
 
   @Get()
   getProducts(@Query() filterDto: GetProductsFilterDto): Promise<Product[]> {
-    return this.productsService.getProducts(filterDto);
+    if (filterDto.count) {
+      // return this.productsService.
+    } else {
+      return this.productsService.getProducts(filterDto);
+    }
   }
 
   @Get(':id')

@@ -79,7 +79,7 @@ export class ProductsRepository extends Repository<Product> {
   }
 
   async getProducts(filterDto: GetProductsFilterDto): Promise<Product[]> {
-    const { name, manufacturer } = filterDto;
+    const { name, manufacturer, limit, offset } = filterDto;
     const query = this.createQueryBuilder('product');
 
     if (name) {
@@ -89,6 +89,16 @@ export class ProductsRepository extends Repository<Product> {
     }
 
     if (manufacturer) {
+      query.andWhere('LOWER(product.manufacturer) = LOWER(:manufacturer)', {
+        manufacturer,
+      });
+    }
+
+    if (offset) {
+      query.take(limit ?? Number.MAX_SAFE_INTEGER);
+      query.skip(offset);
+    } else if (limit) {
+      query.take(limit);
     }
 
     const products = await query.getMany();
