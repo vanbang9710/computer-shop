@@ -109,7 +109,12 @@ const Category = () => {
                 </Typography>
                 <ButtonGroup variant="text" sx={{ marginLeft: 17 }}>
                   <Tooltip title="Sửa thông tin">
-                    <IconButton onClick={handleNavigate}>
+                    <IconButton
+                      onClick={(event) => {
+                        handleNavigate();
+                        dispatch(updateInfo(card));
+                      }}
+                    >
                       <Mode />
                     </IconButton>
                   </Tooltip>

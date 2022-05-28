@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const laptopSlice = createSlice({
-    name: "laptop",
+export const laptopCreateSlice = createSlice({
+    name: "laptopCreate",
     initialState: {
         info: {
             name: "",
@@ -41,9 +41,12 @@ export const laptopSlice = createSlice({
         updateError: (state) => {
             state.pending = false;
             state.error = true;
-        }
+        },
+        passInfo: (state, action) => {
+            state.info = action.payload;
+        },
     },
 });
 
-export const { updateStart, updateSuccess, updateError } = laptopSlice.actions;
-export default laptopSlice.reducer;
+export const { updateStart, updateSuccess, updateError, passInfo } = laptopCreateSlice.actions;
+export default laptopCreateSlice.reducer;

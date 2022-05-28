@@ -25,6 +25,8 @@ import {
 } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateInfo } from "../../redux/laptopInfoSlice";
 
 const drawerWidth = 240;
 
@@ -111,6 +113,7 @@ const Sidebar = () => {
   };
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <Box sx={{ display: "flex", flexGrow: 1 }}>
@@ -210,6 +213,7 @@ const Sidebar = () => {
               <ListItemButton
                 sx={{ pl: 3.5 }}
                 onClick={() => {
+                  dispatch(updateInfo({}));
                   navigate("/dashboard/laptop/modify");
                 }}
               >

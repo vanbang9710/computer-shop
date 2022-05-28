@@ -1,6 +1,7 @@
 import { FilterAlt } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Checkbox,
   Divider,
   FormControlLabel,
@@ -72,6 +73,9 @@ const Filter = () => {
               </Grid>
             ))}
           </Grid>
+          <Button type="submit" variant="contained" sx={{ marginTop: 50 }}>
+            Xác nhận
+          </Button>
         </Box>
       </Modal>
     </div>

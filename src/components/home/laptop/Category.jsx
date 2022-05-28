@@ -128,7 +128,8 @@ const Category = () => {
               key !== "id" &&
               key !== "name" &&
               key !== "thumb" &&
-              key !== "price"
+              key !== "price" &&
+              key !== "quantity"
           )
           .map((keyName, keyIndex) => {
             return (
