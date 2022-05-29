@@ -49,6 +49,7 @@ export class ProductsService {
         //duplicate name
         throw new ConflictException('Name already exists');
       } else {
+        console.log(error);
         throw new InternalServerErrorException();
       }
     }

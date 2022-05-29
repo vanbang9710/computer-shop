@@ -72,6 +72,7 @@ export class ProductsRepository extends Repository<Product> {
         //duplicate name
         throw new ConflictException('Name already exists');
       } else {
+        console.log(error);
         throw new InternalServerErrorException();
       }
     }
