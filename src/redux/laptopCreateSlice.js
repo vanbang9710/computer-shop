@@ -27,7 +27,7 @@ export const laptopCreateSlice = createSlice({
             os: "",
             accessories: "",
         },
-        pending: false,
+        pending: null,
         error: false,
     },
     reducers: {

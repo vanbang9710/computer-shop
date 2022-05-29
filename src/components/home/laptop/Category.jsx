@@ -89,27 +89,43 @@ const Category = () => {
   const cards = useSelector((state) => state.laptopGetAll.laptopInfo);
   const cardInfo = useSelector((state) => state.laptopInfo.info);
   const page = useSelector((state) => state.page.info);
+  const manufacturer = useSelector((state) => state.manufacturer.name);
 
-  console.log(page.pageCount, page.limit);
+  let url = "";
+  if (
+    manufacturer === "Tất cả" ||
+    manufacturer === undefined ||
+    manufacturer === null
+  ) {
+    url =
+      "http://localhost:3001/api/products?limit=" +
+      page.limit +
+      "&offset=" +
+      (page.pageCount - 1) * page.limit;
+  } else {
+    url =
+      "http://localhost:3001/api/products?manufacturer=" +
+      manufacturer +
+      "&limit=" +
+      page.limit +
+      "&offset=" +
+      (page.pageCount - 1) * page.limit;
+  }
+
+  console.log(url);
 
   useEffect(() => {
     // GET Request.
-    fetch(
-      "http://localhost:3001/api/products?limit=" +
-        page.limit +
-        "&offset=" +
-        (page.pageCount - 1) * page.limit,
-      {
-        mode: "cors",
-      }
-    )
+    fetch(url, {
+      mode: "cors",
+    })
       // Handle success
       .then((response) => response.json()) // convert to json
       .then((data) => {
         dispatch(getAll(data));
       }) //print data to console
       .catch((err) => console.log(err)); // Catch errors
-  }, [dispatch, page.pageCount, page.limit]);
+  }, [dispatch, page.pageCount, page.limit, manufacturer, url]);
 
   return (
     <Container sx={{ py: 18 }} maxWidth="lg">

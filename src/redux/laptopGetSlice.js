@@ -33,9 +33,12 @@ export const laptopGetSlice = createSlice({
     reducers: {
         getAll: (state, action) => {
             state.laptopInfo = action.payload;
+        },
+        remove: (state, action) => {
+            state.laptopInfo.splice(state.laptopInfo.indexOf(action.payload), 1);
         }
     },
 });
 
-export const { getAll } = laptopGetSlice.actions;
+export const { getAll, remove } = laptopGetSlice.actions;
 export default laptopGetSlice.reducer;

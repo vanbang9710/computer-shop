@@ -9,69 +9,57 @@ import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { passInfo } from "../../../redux/laptopCreateSlice";
 import { updateLaptop } from "../../../redux/createAPI";
-
-const info = [
-  "price",
-  "manufacturer",
-  "model",
-  "color",
-  "processor",
-  "maxMemory",
-  "graphicProcessor",
-  "hardDrives",
-  "optDrives",
-  "display",
-  "webcam",
-  "audio",
-  "wiredConnection",
-  "wirelessConnection",
-  "ports",
-  "battery",
-  "dimensions",
-  "weight",
-  "os",
-  "accessories",
-];
+import { Alert, Snackbar } from "@mui/material";
 
 export default function SignUp() {
   const cardInfo = useSelector((state) => state.laptopInfo.info);
   const dispatch = useDispatch();
   dispatch(passInfo(cardInfo));
-  const newCardInfo = useSelector((state) => state.laptopCreate.info);
+  const { info, pending, error } = useSelector((state) => state.laptopCreate);
 
-  const [name, setName] = React.useState(newCardInfo.name);
-  const [price, setPrice] = React.useState(newCardInfo.price);
-  const [manufacturer, setManufacturer] = React.useState(
-    newCardInfo.manufacturer
-  );
-  const [model, setModel] = React.useState(newCardInfo.model);
-  const [color, setColor] = React.useState(newCardInfo.color);
-  const [processor, setProcessor] = React.useState(newCardInfo.processor);
-  const [maxMemory, setMaxMemory] = React.useState(newCardInfo.maxMemory);
+  const [name, setName] = React.useState(info.name);
+  const [price, setPrice] = React.useState(info.price);
+  const [manufacturer, setManufacturer] = React.useState(info.manufacturer);
+  const [model, setModel] = React.useState(info.model);
+  const [color, setColor] = React.useState(info.color);
+  const [processor, setProcessor] = React.useState(info.processor);
+  const [maxMemory, setMaxMemory] = React.useState(info.maxMemory);
   const [graphicProcessor, setGraphicProcessor] = React.useState(
-    newCardInfo.graphicProcessor
+    info.graphicProcessor
   );
-  const [hardDrives, setHardDrives] = React.useState(newCardInfo.hardDrives);
-  const [optDrives, setOptDrives] = React.useState(newCardInfo.optDrives);
-  const [display, setDisplay] = React.useState(newCardInfo.display);
-  const [webcam, setWebcam] = React.useState(newCardInfo.webcam);
-  const [audio, setAudio] = React.useState(newCardInfo.audio);
+  const [hardDrives, setHardDrives] = React.useState(info.hardDrives);
+  const [optDrives, setOptDrives] = React.useState(info.optDrives);
+  const [display, setDisplay] = React.useState(info.display);
+  const [webcam, setWebcam] = React.useState(info.webcam);
+  const [audio, setAudio] = React.useState(info.audio);
   const [wiredConnection, setWiredConnection] = React.useState(
-    newCardInfo.wiredConnection
+    info.wiredConnection
   );
   const [wirelessConnection, setWirelessConnection] = React.useState(
-    newCardInfo.wirelessConnection
+    info.wirelessConnection
   );
-  const [ports, setPorts] = React.useState(newCardInfo.ports);
-  const [battery, setBattery] = React.useState(newCardInfo.battery);
-  const [dimension, setDimension] = React.useState(newCardInfo.dimensions);
-  const [weight, setWeight] = React.useState(newCardInfo.weight);
-  const [os, setOS] = React.useState(newCardInfo.os);
-  const [accessories, setAccessories] = React.useState(newCardInfo.accessories);
-  const [thumb, setThumb] = React.useState(newCardInfo.thumb);
+  const [ports, setPorts] = React.useState(info.ports);
+  const [battery, setBattery] = React.useState(info.battery);
+  const [dimensions, setDimensions] = React.useState(info.dimensions);
+  const [weight, setWeight] = React.useState(info.weight);
+  const [os, setOS] = React.useState(info.os);
+  const [accessories, setAccessories] = React.useState(info.accessories);
+  const [thumb, setThumb] = React.useState(info.thumb);
+  const [quantity, setQuantity] = React.useState(info.quantity);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setOpen(true);
     const newInfo = {
       name,
       price,
@@ -90,13 +78,22 @@ export default function SignUp() {
       wirelessConnection,
       ports,
       battery,
-      dimension,
+      dimensions,
       weight,
       os,
       accessories,
       thumb,
+      quantity,
     };
-    updateLaptop(newInfo, dispatch);
+    if (
+      cardInfo.name !== "" &&
+      cardInfo.name !== undefined &&
+      cardInfo !== null
+    ) {
+      updateLaptop(newInfo, dispatch, "PUT", cardInfo.id);
+    } else {
+      updateLaptop(newInfo, dispatch, "POST", -1);
+    }
   };
 
   return (
@@ -123,7 +120,7 @@ export default function SignUp() {
                 id="name"
                 label="Name"
                 placeholder="Name"
-                defaultValue={newCardInfo.name}
+                defaultValue={info.name}
                 onChange={(event) => setName(event.target.value)}
               />
             </Grid>
@@ -136,7 +133,7 @@ export default function SignUp() {
                 id="price"
                 label="Price"
                 placeholder="Price"
-                defaultValue={newCardInfo.price}
+                defaultValue={info.price}
                 onChange={(event) => setPrice(event.target.value)}
               />
             </Grid>
@@ -144,11 +141,12 @@ export default function SignUp() {
               <TextField
                 autoComplete="manufacturer"
                 name="manufacturer"
+                required
                 fullWidth
                 id="manufacturer"
                 label="Manufacturer"
                 placeholder="Manufacturer"
-                defaultValue={newCardInfo.manufacturer}
+                defaultValue={info.manufacturer}
                 onChange={(event) => setManufacturer(event.target.value)}
               />
             </Grid>
@@ -160,7 +158,7 @@ export default function SignUp() {
                 id="model"
                 label="Model"
                 placeholder="Model"
-                defaultValue={newCardInfo.model}
+                defaultValue={info.model}
                 onChange={(event) => setModel(event.target.value)}
               />
             </Grid>
@@ -172,7 +170,7 @@ export default function SignUp() {
                 id="color"
                 label="Color"
                 placeholder="Color"
-                defaultValue={newCardInfo.color}
+                defaultValue={info.color}
                 onChange={(event) => setColor(event.target.value)}
               />
             </Grid>
@@ -184,7 +182,7 @@ export default function SignUp() {
                 id="processor"
                 label="Processor"
                 placeholder="Processor"
-                defaultValue={newCardInfo.processor}
+                defaultValue={info.processor}
                 onChange={(event) => setProcessor(event.target.value)}
               />
             </Grid>
@@ -196,7 +194,7 @@ export default function SignUp() {
                 id="maxMemory"
                 label="MaxMemory"
                 placeholder="MaxMemory"
-                defaultValue={newCardInfo.maxMemory}
+                defaultValue={info.maxMemory}
                 onChange={(event) => setMaxMemory(event.target.value)}
               />
             </Grid>
@@ -208,7 +206,7 @@ export default function SignUp() {
                 id="graphicProcessor"
                 label="GraphicProcessor"
                 placeholder="GraphicsProcessor"
-                defaultValue={newCardInfo.graphicProcessor}
+                defaultValue={info.graphicProcessor}
                 onChange={(event) => setGraphicProcessor(event.target.value)}
               />
             </Grid>
@@ -220,7 +218,7 @@ export default function SignUp() {
                 id="hardDrives"
                 label="HardDrives"
                 placeholder="HardDrives"
-                defaultValue={newCardInfo.hardDrives}
+                defaultValue={info.hardDrives}
                 onChange={(event) => setHardDrives(event.target.value)}
               />
             </Grid>
@@ -232,7 +230,7 @@ export default function SignUp() {
                 id="optDrives"
                 label="OptDrives"
                 placeholder="OptDrives"
-                defaultValue={newCardInfo.optDrives}
+                defaultValue={info.optDrives}
                 onChange={(event) => setOptDrives(event.target.value)}
               />
             </Grid>
@@ -244,7 +242,7 @@ export default function SignUp() {
                 id="display"
                 label="Display"
                 placeholder="Display"
-                defaultValue={newCardInfo.display}
+                defaultValue={info.display}
                 onChange={(event) => setDisplay(event.target.value)}
               />
             </Grid>
@@ -256,7 +254,7 @@ export default function SignUp() {
                 id="webcam"
                 label="Webcam"
                 placeholder="Webcam"
-                defaultValue={newCardInfo.webcam}
+                defaultValue={info.webcam}
                 onChange={(event) => setWebcam(event.target.value)}
               />
             </Grid>
@@ -268,7 +266,7 @@ export default function SignUp() {
                 id="audio"
                 label="Audio"
                 placeholder="Audio"
-                defaultValue={newCardInfo.audio}
+                defaultValue={info.audio}
                 onChange={(event) => setAudio(event.target.value)}
               />
             </Grid>
@@ -280,7 +278,7 @@ export default function SignUp() {
                 id="wiredConnection"
                 label="WiredConnection"
                 placeholder="WiredConnection"
-                defaultValue={newCardInfo.wiredConnection}
+                defaultValue={info.wiredConnection}
                 onChange={(event) => setWiredConnection(event.target.value)}
               />
             </Grid>
@@ -292,7 +290,7 @@ export default function SignUp() {
                 id="wirelessConnection"
                 label="WirelessConnection"
                 placeholder="WirelessConnection"
-                defaultValue={newCardInfo.wirelessConnection}
+                defaultValue={info.wirelessConnection}
                 onChange={(event) => setWirelessConnection(event.target.value)}
               />
             </Grid>
@@ -304,7 +302,7 @@ export default function SignUp() {
                 id="ports"
                 label="Ports"
                 placeholder="Ports"
-                defaultValue={newCardInfo.ports}
+                defaultValue={info.ports}
                 onChange={(event) => setPorts(event.target.value)}
               />
             </Grid>
@@ -316,20 +314,20 @@ export default function SignUp() {
                 id="battery"
                 label="Battery"
                 placeholder="Battery"
-                defaultValue={newCardInfo.battery}
+                defaultValue={info.battery}
                 onChange={(event) => setBattery(event.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="dimension"
-                name="dimension"
+                autoComplete="dimensions"
+                name="dimensions"
                 fullWidth
-                id="dimension"
-                label="Dimension"
-                placeholder="Dimension"
-                defaultValue={newCardInfo.dimension}
-                onChange={(event) => setDimension(event.target.value)}
+                id="dimensions"
+                label="Dimensions"
+                placeholder="Dimensions"
+                defaultValue={info.dimensions}
+                onChange={(event) => setDimensions(event.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -340,7 +338,7 @@ export default function SignUp() {
                 id="weight"
                 label="Weight"
                 placeholder="Weight"
-                defaultValue={newCardInfo.weight}
+                defaultValue={info.weight}
                 onChange={(event) => setWeight(event.target.value)}
               />
             </Grid>
@@ -352,7 +350,7 @@ export default function SignUp() {
                 id="os"
                 label="OS"
                 placeholder="OS"
-                defaultValue={newCardInfo.os}
+                defaultValue={info.os}
                 onChange={(event) => setOS(event.target.value)}
               />
             </Grid>
@@ -364,7 +362,7 @@ export default function SignUp() {
                 id="accessories"
                 label="Accessories"
                 placeholder="Accessories"
-                defaultValue={newCardInfo.accessories}
+                defaultValue={info.accessories}
                 onChange={(event) => setAccessories(event.target.value)}
               />
             </Grid>
@@ -377,7 +375,7 @@ export default function SignUp() {
                 id="thumb"
                 label="Thumb"
                 placeholder="Link"
-                defaultValue={newCardInfo.thumb}
+                defaultValue={info.thumb}
                 onChange={(event) => setThumb(event.target.value)}
               />
             </Grid>
@@ -390,6 +388,8 @@ export default function SignUp() {
                 id="quantity"
                 label="Quantity"
                 placeholder="Quantity"
+                defaultValue={info.quantity}
+                onChange={(event) => setQuantity(event.target.value)}
               />
             </Grid>
           </Grid>
@@ -401,6 +401,27 @@ export default function SignUp() {
           >
             Xác nhận
           </Button>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            {error ? (
+              <Alert
+                onClose={handleClose}
+                severity="error"
+                sx={{ width: "100%" }}
+              >
+                Đã xảy ra lỗi!
+              </Alert>
+            ) : (
+              pending === false && (
+                <Alert
+                  onClose={handleClose}
+                  severity="success"
+                  sx={{ width: "100%" }}
+                >
+                  Cập nhật thành công!
+                </Alert>
+              )
+            )}
+          </Snackbar>
         </Box>
       </Box>
     </Container>

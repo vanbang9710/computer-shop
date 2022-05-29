@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { updateManufacturer } from "../../redux/filterBrand";
 
 const brands = [
   "ACER",
@@ -29,6 +31,7 @@ const brands = [
   "MSI",
   "ORICO",
   "VGS",
+  "Tất cả",
 ];
 
 const style = {
@@ -45,8 +48,17 @@ const style = {
 };
 const Filter = () => {
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleChange = (event) => {
+    dispatch(updateManufacturer(event.target.value));
+  };
+
+  const handleSubmit = () => {
+    handleClose();
+  };
 
   return (
     <div>
@@ -69,11 +81,21 @@ const Filter = () => {
           <Grid container spacing={2}>
             {brands.map((brand) => (
               <Grid item key={brand} xs={3}>
-                <FormControlLabel control={<Checkbox />} label={brand} />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label={brand}
+                  value={brand}
+                  onChange={handleChange}
+                />
               </Grid>
             ))}
           </Grid>
-          <Button type="submit" variant="contained" sx={{ marginTop: 50 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ marginTop: 50 }}
+            onClick={handleSubmit}
+          >
             Xác nhận
           </Button>
         </Box>

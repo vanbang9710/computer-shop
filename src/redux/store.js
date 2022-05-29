@@ -8,12 +8,14 @@ import laptopCreateReducer from "./laptopCreateSlice";
 import cartContentReducer from "./cartContent";
 import totalPriceReducer from "./totalPrice";
 import addressReducer from "./addressSlice";
+import filterBrandReducer from "./filterBrand";
 
 export default configureStore({
     reducer: {
         user: userReducer,
         page: pageReducer,
         badge: badgeReducer,
+        manufacturer: filterBrandReducer,
         laptopGetAll: laptopGetReducer,
         laptopInfo: laptopInfoReducer,
         laptopCreate: laptopCreateReducer,

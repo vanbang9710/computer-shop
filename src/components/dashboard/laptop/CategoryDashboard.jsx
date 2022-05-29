@@ -1,5 +1,6 @@
 import { Delete, Mode } from "@mui/icons-material";
 import {
+  Button,
   ButtonGroup,
   Card,
   CardActionArea,
@@ -7,6 +8,11 @@ import {
   CardContent,
   CardMedia,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
   Grid,
   IconButton,
@@ -19,11 +25,28 @@ import PaginationLink from "../PaginationDashboard";
 import Filter from "../../common/Filter";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAll } from "../../../redux/laptopGetSlice";
+import { getAll, remove } from "../../../redux/laptopGetSlice";
 import { updateInfo } from "../../../redux/laptopInfoSlice";
+import { deleteLaptop } from "../../../redux/deleteAPI";
 
 const Category = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const [openDialog, setOpenDialog] = React.useState(false);
+
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleCloseDialogAndDelete = () => {
+    setOpenDialog(false);
+    deleteLaptop(dispatch, cardInfo.id);
+    dispatch(remove(cardInfo));
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -48,25 +71,41 @@ const Category = () => {
   const cards = useSelector((state) => state.laptopGetAll.laptopInfo);
   const cardInfo = useSelector((state) => state.laptopInfo.info);
   const page = useSelector((state) => state.page.info);
+  const manufacturer = useSelector((state) => state.manufacturer.name);
+
+  let url = "";
+  if (
+    manufacturer === "Tất cả" ||
+    manufacturer === undefined ||
+    manufacturer === null
+  ) {
+    url =
+      "http://localhost:3001/api/products?limit=" +
+      page.limit +
+      "&offset=" +
+      (page.pageCount - 1) * page.limit;
+  } else {
+    url =
+      "http://localhost:3001/api/products?manufacturer=" +
+      manufacturer +
+      "&limit=" +
+      page.limit +
+      "&offset=" +
+      (page.pageCount - 1) * page.limit;
+  }
   const dispatch = useDispatch();
   useEffect(() => {
     // GET Request.
-    fetch(
-      "http://localhost:3001/api/products?limit=" +
-        page.limit +
-        "&offset=" +
-        (page.pageCount - 1) * page.limit,
-      {
-        mode: "cors",
-      }
-    )
+    fetch(url, {
+      mode: "cors",
+    })
       // Handle success
       .then((response) => response.json()) // convert to json
       .then((data) => {
         dispatch(getAll(data));
       }) //print data to console
       .catch((err) => console.log(err)); // Catch errors
-  }, [dispatch, page.pageCount, page.limit]);
+  }, [dispatch, page.pageCount, page.limit, manufacturer, url]);
 
   return (
     <Container sx={{ py: 18 }} maxWidth="lg">
@@ -128,10 +167,37 @@ const Category = () => {
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Xóa sản phẩm">
-                    <IconButton>
+                    <IconButton
+                      onClick={(event) => {
+                        handleClickOpenDialog();
+                        dispatch(updateInfo(card));
+                      }}
+                    >
                       <Delete />
                     </IconButton>
                   </Tooltip>
+                  <Dialog
+                    open={openDialog}
+                    onClose={handleCloseDialog}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    hideBackdrop
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {"Bạn có chắc chắn muốn xóa sản phẩm này?"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        Hành động này không thể quay lại
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleCloseDialog}>Quay lại</Button>
+                      <Button onClick={handleCloseDialogAndDelete} autoFocus>
+                        Xác nhận
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                 </ButtonGroup>
               </CardActions>
             </Card>
