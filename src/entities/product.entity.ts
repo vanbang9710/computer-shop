@@ -1,14 +1,12 @@
 import { OrderDetail } from 'src/entities/order-detail.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Product {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // @ManyToOne((_type) => OrderDetail, (orderDetail) => orderDetail.products, {
-  //   eager: false,
-  // })
-  // @Exclude({ toPlainOnly: true })
-  // orderDetail: OrderDetail;
+  @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.product, {
+    eager: true,
+  })
+  orderDetails: OrderDetail[];
 
   @PrimaryGeneratedColumn()
   id: number;
