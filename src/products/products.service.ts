@@ -8,8 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsRepository } from './products.repository';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { Product } from './entities/product.entity';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
+import { Product } from 'src/entities/product.entity';
 
 @Injectable()
 export class ProductsService {
@@ -45,11 +45,11 @@ export class ProductsService {
     try {
       await this.productsRepository.update(id, updatedProduct);
     } catch (error) {
+      console.log(error);
       if (error.code === 'ER_DUP_ENTRY') {
         //duplicate name
         throw new ConflictException('Name already exists');
       } else {
-        console.log(error);
         throw new InternalServerErrorException();
       }
     }

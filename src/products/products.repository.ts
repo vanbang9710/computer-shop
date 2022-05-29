@@ -1,6 +1,6 @@
 import { CustomRepository } from 'src/database/typeorm-ex.decorator';
 import { Repository } from 'typeorm';
-import { Product } from './entities/product.entity';
+import { Product } from 'src/entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
 import {
@@ -68,11 +68,11 @@ export class ProductsRepository extends Repository<Product> {
     try {
       await this.save(product);
     } catch (error) {
+      console.log(error);
       if (error.code === 'ER_DUP_ENTRY') {
         //duplicate name
         throw new ConflictException('Name already exists');
       } else {
-        console.log(error);
         throw new InternalServerErrorException();
       }
     }

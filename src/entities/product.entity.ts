@@ -1,7 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { OrderDetail } from 'src/entities/order-detail.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Product {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // @ManyToOne((_type) => OrderDetail, (orderDetail) => orderDetail.products, {
+  //   eager: false,
+  // })
+  // @Exclude({ toPlainOnly: true })
+  // orderDetail: OrderDetail;
+
   @PrimaryGeneratedColumn()
   id: number;
 
