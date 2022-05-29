@@ -16,8 +16,8 @@ export class OrdersService {
     return this.ordersRepository.createOrder(createOrderDto);
   }
 
-  findAll() {
-    return `This action returns all orders`;
+  getOrders(): Promise<Order[]> {
+    return this.ordersRepository.getOrders();
   }
 
   findOne(id: number) {

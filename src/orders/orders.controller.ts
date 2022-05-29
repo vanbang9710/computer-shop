@@ -22,8 +22,8 @@ export class OrdersController {
   }
 
   @Get()
-  findAll() {
-    return this.ordersService.findAll();
+  getOrders(): Promise<Order[]> {
+    return this.ordersService.getOrders();
   }
 
   @Get(':id')
