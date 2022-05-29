@@ -1,4 +1,4 @@
 export enum OrderStatus {
-  GIAO = 'GIAO',
-  CHUA_GIAO = 'CHƯA GIAO',
+  GIAO = 'Giao',
+  CHUA_GIAO = 'Chưa giao',
 }

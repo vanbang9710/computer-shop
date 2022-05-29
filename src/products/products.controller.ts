@@ -16,7 +16,7 @@ import { GetProductsFilterDto } from './dto/get-products-filter.dto';
 
 @Controller('/api/products')
 export class ProductsController {
-  constructor(private productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductsService) {}
 
   @Post('/create')
   createProduct(@Body() createProductDto: CreateProductDto): Promise<Product> {

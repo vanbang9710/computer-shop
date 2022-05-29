@@ -7,11 +7,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { OrderDetailsModule } from './order-details/order-details.module';
 import { configValidationSchema } from './config.schema';
 import { OrdersModule } from './orders/orders.module';
-import { CustomersModule } from './customers/customers.module';
 import { Product } from './entities/product.entity';
 import { Order } from './entities/order.entity';
 import { OrderDetail } from './entities/order-detail.entity';
-import { Customer } from './entities/customer.entity';
+import { OrdersRepository } from './orders/order.repository';
 
 @Module({
   imports: [
@@ -19,7 +18,7 @@ import { Customer } from './entities/customer.entity';
       envFilePath: [`.env.stage.${process.env.STAGE}`],
       validationSchema: configValidationSchema,
     }),
-    CustomersModule,
+    // CustomersModule,
     OrderDetailsModule,
     OrdersModule,
     ProductsModule,
@@ -31,7 +30,7 @@ import { Customer } from './entities/customer.entity';
         synchronize: true,
         // autoLoadEntities: true,
         // entities: [__dirname + '/**/*.entity.{js,ts}'],
-        entities: [Product, Order, OrderDetail, Customer],
+        entities: [Product, Order, OrderDetail],
         host: configService.get('DB_HOST'),
         port: configService.get('DB_PORT'),
         username: configService.get('DB_USERNAME'),
@@ -39,7 +38,7 @@ import { Customer } from './entities/customer.entity';
         database: configService.get('DB_DATABASE'),
       }),
     }),
-    TypeOrmExModule.forCustomRepository([ProductsRepository]),
+    TypeOrmExModule.forCustomRepository([ProductsRepository, OrdersRepository]),
   ],
 })
 export class AppModule {}
