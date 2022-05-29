@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { OrderDetail } from 'src/entities/order-detail.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -6,6 +7,7 @@ export class Product {
   @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.product, {
     eager: true,
   })
+  // @Exclude() //{ toPlainOnly: true })
   orderDetails: OrderDetail[];
 
   @PrimaryGeneratedColumn()

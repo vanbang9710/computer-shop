@@ -40,10 +40,17 @@ export class ProductsService {
     id: number,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    const product = await this.getProductById(id);
-    const updatedProduct = { ...product, ...updateProductDto };
+    const product = await this.productsRepository.findOne({
+      where: { id: id },
+    });
+    if (!product) {
+      throw new NotFoundException(`Product with ID "${id}" not found`);
+    }
+    // const updatedProduct = { ...product, ...updateProductDto };
+    Object.assign(product, updateProductDto);
     try {
-      await this.productsRepository.update(id, updatedProduct);
+      // await this.productsRepository.update(id, updatedProduct);
+      await this.productsRepository.save(product);
     } catch (error) {
       console.log(error);
       if (error.code === 'ER_DUP_ENTRY') {
@@ -53,7 +60,7 @@ export class ProductsService {
         throw new InternalServerErrorException();
       }
     }
-    return updatedProduct;
+    return product;
   }
 
   async deleteProduct(id: number): Promise<void> {

@@ -1,4 +1,4 @@
 export enum OrderStatus {
-  SHIPPED = 'SHIPPED',
-  IN_PROCESS = 'IN_PROCESS',
+  GIAO = 'GIAO',
+  CHUA_GIAO = 'CHƯA GIAO',
 }
