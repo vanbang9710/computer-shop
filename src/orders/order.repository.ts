@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
 import { CustomRepository } from 'src/database/typeorm-ex.decorator';

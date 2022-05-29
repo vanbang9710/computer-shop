@@ -24,6 +24,7 @@ export class OrdersService {
     return `This action returns a #${id} order`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(id: number, updateOrderDto: UpdateOrderDto) {
     return `This action updates a #${id} order`;
   }

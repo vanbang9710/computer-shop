@@ -11,7 +11,7 @@ import { OrderStatus } from '../order-status.enum';
 export class CreateOrderDto {
   // @Type(() => Date)
   // @IsDate({ })
-  @IsDateString(true)
+  @IsDateString({ strict: true })
   @IsNotEmpty()
   orderDate: Date;
 

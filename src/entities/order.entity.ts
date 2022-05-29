@@ -1,4 +1,4 @@
-import { Exclude } from 'class-transformer';
+// import { Exclude } from 'class-transformer';
 import { OrderStatus } from 'src/orders/order-status.enum';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { OrderDetail } from './order-detail.entity';
@@ -26,11 +26,11 @@ export class Order {
   orderStatus: OrderStatus;
 
   @Column()
-  @Exclude({ toPlainOnly: true })
+  // @Exclude({ toPlainOnly: true })
   firstName: string;
 
   @Column()
-  @Exclude({ toPlainOnly: true })
+  // @Exclude({ toPlainOnly: true })
   lastName: string;
 
   @Column()
