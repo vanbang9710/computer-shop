@@ -12,11 +12,11 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from 'src/entities/order.entity';
 
-@Controller('/api/orders')
+@Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @Post('/create')
+  @Post('create')
   createOrder(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
     return this.ordersService.createOrder(createOrderDto);
   }

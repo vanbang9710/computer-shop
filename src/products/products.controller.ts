@@ -14,11 +14,11 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from 'src/entities/product.entity';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
 
-@Controller('/api/products')
+@Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Post('/create')
+  @Post('create')
   createProduct(@Body() createProductDto: CreateProductDto): Promise<Product> {
     return this.productsService.createProduct(createProductDto);
   }

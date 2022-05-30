@@ -11,6 +11,7 @@ import { Product } from './entities/product.entity';
 import { Order } from './entities/order.entity';
 import { OrderDetail } from './entities/order-detail.entity';
 import { OrdersRepository } from './orders/order.repository';
+import { OrderDetailsRepository } from './order-details/order-details.repository';
 
 @Module({
   imports: [
@@ -38,7 +39,11 @@ import { OrdersRepository } from './orders/order.repository';
         database: configService.get('DB_DATABASE'),
       }),
     }),
-    TypeOrmExModule.forCustomRepository([ProductsRepository, OrdersRepository]),
+    TypeOrmExModule.forCustomRepository([
+      ProductsRepository,
+      OrdersRepository,
+      OrderDetailsRepository,
+    ]),
   ],
 })
 export class AppModule {}

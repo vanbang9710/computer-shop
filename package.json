@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "cross-env STAGE=prod nest start",
     "start:dev": "cross-env STAGE=dev nest start --watch",
     "start:debug": "cross-env STAGE=dev nest start --debug --watch",
     "start:prod": "cross-env STAGE=prod node dist/main",
@@ -27,6 +27,7 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/swagger": "^5.2.1",
     "@nestjs/typeorm": "^9.0.0-next.2",
     "@types/validator": "^13.7.2",
     "class-transformer": "^0.5.1",
@@ -35,6 +36,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.4.0",
     "typeorm": "^0.3.6"
   },
   "devDependencies": {
