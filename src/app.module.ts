@@ -12,6 +12,7 @@ import { Order } from './entities/order.entity';
 import { OrderDetail } from './entities/order-detail.entity';
 import { OrdersRepository } from './orders/order.repository';
 import { OrderDetailsRepository } from './order-details/order-details.repository';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -45,5 +46,7 @@ import { OrderDetailsRepository } from './order-details/order-details.repository
       OrderDetailsRepository,
     ]),
   ],
+  controllers: [AppController],
+  providers: [],
 })
 export class AppModule {}
