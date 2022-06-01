@@ -1,4 +1,5 @@
 # computer-shop
-Website using a computer shop database
+EER diagram
 
-![Computer_Shop_Database](https://user-images.githubusercontent.com/52906188/161421824-b2c340b4-e01a-49ab-aece-27109662cd5f.png)
+
+![Database](https://user-images.githubusercontent.com/79564920/171328440-af7fda3c-0661-4ce4-bfa7-87c46f7ded3f.png)
