@@ -9,6 +9,9 @@ import cartContentReducer from "./cartContent";
 import totalPriceReducer from "./totalPrice";
 import addressReducer from "./addressSlice";
 import filterBrandReducer from "./filterBrand";
+import orderReducer from "./orderSlice";
+import orderDetailsReducer from "./orderDetailsSlice";
+import themeReducer from "./themeSlice";
 
 export default configureStore({
     reducer: {
@@ -22,5 +25,8 @@ export default configureStore({
         cartContent: cartContentReducer,
         price: totalPriceReducer,
         address: addressReducer,
+        order: orderReducer,
+        orderDetails: orderDetailsReducer,
+        theme: themeReducer
     }
 });

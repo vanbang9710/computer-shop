@@ -16,6 +16,10 @@ import Review from "../components/checkout/Review";
 import { theme } from "../theme";
 import NavBar from "../components/common/NavBar";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateOrder } from "../redux/updateOrderAPI";
+import { updateCartContent } from "../redux/cartContent";
+import { updateBadge } from "../redux/badgeSlice";
 
 function Copyright() {
   const navigate = useNavigate();
@@ -59,8 +63,51 @@ function getStepContent(step) {
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
 
+  const address = useSelector((state) => state.address.info);
+  const orderId = useDispatch((state) => state.order.info.id);
+  const cartContents = useSelector((state) => state.cartContent.info);
+  const dispatch = useDispatch();
+  const date = new Date();
+  let month = date.getMonth() + 1;
+  if (month < 10) {
+    month = "0" + month;
+  }
+  const year = date.getFullYear();
+  let day = date.getDate();
+  if (day < 10) {
+    day = "0" + day;
+  }
+  const order = {
+    orderDate: year + "-" + month + "-" + day,
+    firstName: address.firstName,
+    lastName: address.lastName,
+    phone: address.phone,
+    email: address.email,
+    address: address.address,
+    orderStatus: "Chưa giao",
+  };
+  console.log(order);
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+    if (activeStep === steps.length - 1) {
+      updateOrder(order);
+
+      const orderDetails = [];
+
+      cartContents.map((cart) =>
+        orderDetails.push({
+          orderId: orderId,
+          productId: cart.id,
+          quantity: cart.quantity,
+        })
+      );
+
+      sessionStorage.removeItem("productQuantity");
+      sessionStorage.removeItem("orderList");
+      dispatch(updateCartContent([]));
+      dispatch(updateBadge(0));
+    }
   };
 
   const handleBack = () => {

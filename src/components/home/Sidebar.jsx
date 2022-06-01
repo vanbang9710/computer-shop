@@ -16,6 +16,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Navbar from "./Navbar";
 import {
   Category,
+  Dashboard,
   Home,
   Laptop,
   ModeNight,
@@ -210,6 +211,17 @@ const Sidebar = () => {
           </ListItemButton>
           <Collapse in={expandSetting} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
+              <ListItemButton
+                sx={{ pl: 3.5 }}
+                onClick={() => {
+                  navigate("/dashboard");
+                }}
+              >
+                <ListItemIcon>
+                  <Dashboard />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
               <ListItemButton sx={{ pl: 3.5 }}>
                 <ListItemIcon>
                   <ModeNight />
