@@ -1,5 +1,4 @@
 # computer-shop
 EER diagram
 
-
-![Database](https://user-images.githubusercontent.com/79564920/171328440-af7fda3c-0661-4ce4-bfa7-87c46f7ded3f.png)
+![Database](https://user-images.githubusercontent.com/79564920/171329368-1721e365-9a0f-4d57-ad1f-26b81d62a4a5.png)
