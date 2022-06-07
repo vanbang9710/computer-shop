@@ -1,6 +1,6 @@
 import { CustomRepository } from 'src/database/typeorm-ex.decorator';
 import { Repository } from 'typeorm';
-import { Product } from 'src/entities/product.entity';
+import { Product } from 'src/products/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
 import {

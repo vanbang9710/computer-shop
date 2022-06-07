@@ -9,7 +9,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsRepository } from './products.repository';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
-import { Product } from 'src/entities/product.entity';
+import { Product } from 'src/products/product.entity';
 
 @Injectable()
 export class ProductsService {

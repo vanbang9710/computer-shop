@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { CustomRepository } from 'src/database/typeorm-ex.decorator';
-import { Order } from 'src/entities/order.entity';
+import { Order } from 'src/orders/order.entity';
 import { Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 

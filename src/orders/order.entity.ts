@@ -1,7 +1,7 @@
 // import { Exclude } from 'class-transformer';
 import { OrderStatus } from 'src/orders/order-status.enum';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { OrderDetail } from './order-detail.entity';
+import { OrderDetail } from '../order-details/order-detail.entity';
 
 @Entity()
 export class Order {

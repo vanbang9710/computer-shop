@@ -1,5 +1,5 @@
 import { CustomRepository } from 'src/database/typeorm-ex.decorator';
-import { OrderDetail } from 'src/entities/order-detail.entity';
+import { OrderDetail } from 'src/order-details/order-detail.entity';
 import { Repository } from 'typeorm';
 import { CreateOrderDetailDto } from './dto/create-order-detail.dto';
 
