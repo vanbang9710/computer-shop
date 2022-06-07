@@ -8,10 +8,10 @@ export class OrderDetailsRepository extends Repository<OrderDetail> {
   async createOrderDetails(
     createOrderDetailsDto: CreateOrderDetailDto,
   ): Promise<void> {
-    const a = await this.createQueryBuilder()
-      .insert()
-      .into(OrderDetail)
-      .values(createOrderDetailsDto);
+    // const a = await this.createQueryBuilder()
+    //   .insert()
+    //   .into(OrderDetail)
+    //   .values(createOrderDetailsDto);
     // .execute()
     // console.log(a);
     // const orderDetails: OrderDetail[] = [];
