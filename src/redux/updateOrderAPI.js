@@ -1,6 +1,6 @@
 export const updateOrder = async (orderDetails) => {
     try {
-        fetch("http://localhost:3001/api/orders/create", {
+        fetch("https://computer-shop-beztdonkey.herokuapp.com/api/orders/create", {
             method: "POST",
             body: JSON.stringify(orderDetails),
             headers: {

@@ -3,7 +3,7 @@ import { updateStart, updateSuccess, updateError } from "./laptopCreateSlice"
 export const deleteLaptop = async (dispatch, id) => {
     dispatch(updateStart());
     try {
-        fetch("http://localhost:3001/api/products/" + id, {
+        fetch("https://computer-shop-beztdonkey.herokuapp.com/api/products/" + id, {
             method: "Delete",
             headers: {
                 'Content-Type': 'application/json'

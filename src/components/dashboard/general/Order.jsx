@@ -14,7 +14,7 @@ export default function Orders() {
 
   React.useEffect(() => {
     // GET Request.
-    fetch("http://localhost:3001/api/orders", {
+    fetch("https://computer-shop-beztdonkey.herokuapp.com/api/orders", {
       mode: "cors",
     })
       // Handle success
