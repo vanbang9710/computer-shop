@@ -4,7 +4,7 @@ export const updateLaptop = async (cardInfo, dispatch, method, id) => {
     dispatch(updateStart());
     if (method === "POST") {
         try {
-            fetch("http://localhost:3001/api/products/create", {
+            fetch("https://computer-shop-beztdonkey.herokuapp.com/api/products/create", {
                 method: method,
                 body: JSON.stringify(cardInfo),
                 headers: {
@@ -25,7 +25,7 @@ export const updateLaptop = async (cardInfo, dispatch, method, id) => {
     else {
         console.log(123);
         try {
-            fetch("http://localhost:3001/api/products/" + id, {
+            fetch("https://computer-shop-beztdonkey.herokuapp.com/api/products/" + id, {
                 method: method,
                 body: JSON.stringify(cardInfo),
                 headers: {

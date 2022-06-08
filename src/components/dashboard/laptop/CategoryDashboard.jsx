@@ -80,13 +80,13 @@ const Category = () => {
     manufacturer === null
   ) {
     url =
-      "http://localhost:3001/api/products?limit=" +
+      "https://computer-shop-beztdonkey.herokuapp.com/api/products?limit=" +
       page.limit +
       "&offset=" +
       (page.pageCount - 1) * page.limit;
   } else {
     url =
-      "http://localhost:3001/api/products?manufacturer=" +
+      "https://computer-shop-beztdonkey.herokuapp.com/api/products?manufacturer=" +
       manufacturer +
       "&limit=" +
       page.limit +
