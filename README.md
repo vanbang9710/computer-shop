@@ -1,3 +1,11 @@
+
+# Computer shop
+
+_Change here_
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Setup environment
 # computer-shop
 EER diagram
 
