@@ -28,13 +28,13 @@ import { AppController } from './app.controller';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
-        const isProduction = configService.get('STAGE') === 'prod';
+        // const isProduction = configService.get('STAGE') === 'prod';
 
         return {
-          ssl: isProduction,
-          extra: {
-            ssl: isProduction ? { rejectUnauthorized: false } : null,
-          },
+          // ssl: isProduction,
+          // extra: {
+          //   ssl: isProduction ? { rejectUnauthorized: false } : null,
+          // },
           type: 'mysql',
           synchronize: true,
           // autoLoadEntities: true,
